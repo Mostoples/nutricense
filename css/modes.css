@@ -1,0 +1,320 @@
+/* ============================================================
+   NUTRICENSE — Perlakuan komponen per mode + efek futuristik
+   Dimuat PALING AKHIR agar dapat menimpa app.css / site.css.
+
+   Empat mode: light · dark · neu (neumorphism) · aura
+   Token warnanya ada di css/tokens.css; berkas ini mengurus
+   bentuk permukaan (bayangan, kaca, pendar) dan efek layar.
+   ============================================================ */
+
+/* ════════════════════════════════════════════════════════════
+   LAPISAN EFEK GLOBAL
+   Ditempel sekali ke <body> oleh js/fx.js. Semuanya
+   pointer-events:none dan berada di bawah seluruh konten.
+   ════════════════════════════════════════════════════════════ */
+.fx-layer {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+body > *:not(.fx-layer) { position: relative; z-index: 1; }
+
+/* ── Kabut aurora: tiga gumpalan besar yang bergerak lambat ── */
+.fx-aurora { position: absolute; inset: -20%; opacity: 0; transition: opacity 1.2s var(--ease); }
+.fx-aurora i {
+    position: absolute;
+    display: block;
+    width: 62vmax; height: 62vmax;
+    border-radius: 50%;
+    filter: blur(90px);
+    mix-blend-mode: screen;
+    will-change: transform;
+}
+.fx-aurora i:nth-child(1) { background: var(--aura-1, #16a34a); top: -18%; left: -12%; animation: aur-a 26s var(--ease-in-out) infinite; }
+.fx-aurora i:nth-child(2) { background: var(--aura-2, #0891b2); top: 8%;  right: -18%; animation: aur-b 32s var(--ease-in-out) infinite; }
+.fx-aurora i:nth-child(3) { background: var(--aura-3, #7c3aed); bottom: -26%; left: 22%; animation: aur-c 38s var(--ease-in-out) infinite; }
+
+@keyframes aur-a { 0%,100% { transform: translate3d(0,0,0) scale(1); } 50% { transform: translate3d(8vw,6vh,0) scale(1.14); } }
+@keyframes aur-b { 0%,100% { transform: translate3d(0,0,0) scale(1); } 50% { transform: translate3d(-9vw,10vh,0) scale(.88); } }
+@keyframes aur-c { 0%,100% { transform: translate3d(0,0,0) scale(1); } 50% { transform: translate3d(6vw,-8vh,0) scale(1.08); } }
+
+[data-theme="aura"] .fx-aurora { opacity: .40; }
+[data-theme="dark"] .fx-aurora { opacity: .13; }
+
+/* ── Kisi teknis: garis halus yang memudar ke tepi ── */
+.fx-grid {
+    position: absolute; inset: 0;
+    opacity: .5;
+    background-image:
+        linear-gradient(var(--line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 68px 68px;
+    mask-image: radial-gradient(80% 70% at 50% 0%, #000 10%, transparent 78%);
+    -webkit-mask-image: radial-gradient(80% 70% at 50% 0%, #000 10%, transparent 78%);
+}
+[data-theme="neu"] .fx-grid { opacity: 0; }
+[data-theme="aura"] .fx-grid { opacity: .8; }
+
+/* ── Garis pindai: satu sapuan tipis turun perlahan ── */
+.fx-scan {
+    position: absolute; left: 0; right: 0; height: 42vh; top: -42vh;
+    background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--accent) 12%, transparent), transparent);
+    animation: fx-scan 11s linear infinite;
+    opacity: 0;
+}
+@keyframes fx-scan { to { transform: translateY(160vh); } }
+[data-theme="aura"] .fx-scan { opacity: .75; }
+[data-theme="dark"] .fx-scan { opacity: .35; }
+
+/* ── Bintik derau halus supaya gradien tidak berpita ── */
+.fx-grain {
+    position: absolute; inset: 0; opacity: .035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+[data-theme="neu"] .fx-grain { opacity: .02; }
+[data-theme="aura"] .fx-grain { opacity: .05; }
+
+/* ════════════════════════════════════════════════════════════
+   NEUMORPHISM
+   ════════════════════════════════════════════════════════════ */
+[data-theme="neu"] .card,
+[data-theme="neu"] .stat,
+[data-theme="neu"] .prob,
+[data-theme="neu"] .role,
+[data-theme="neu"] .flow li,
+[data-theme="neu"] .faq,
+[data-theme="neu"] .stat-strip,
+[data-theme="neu"] .spec-band > div,
+[data-theme="neu"] .shot,
+[data-theme="neu"] .demo-note,
+[data-theme="neu"] .demo-card,
+[data-theme="neu"] .date-strip,
+[data-theme="neu"] .hero-chips li,
+[data-theme="neu"] .searchbar,
+[data-theme="neu"] .field-box,
+[data-theme="neu"] textarea.ta,
+[data-theme="neu"] .mode {
+    background: var(--surface);
+    border: 0;
+    box-shadow: var(--sh-md);
+}
+[data-theme="neu"] .spec-band { background: transparent; border: 0; gap: 14px; }
+[data-theme="neu"] .card + .card { margin-top: var(--sp-5); }
+
+/* Permukaan yang “ditekan ke dalam” memakai bayangan inset */
+[data-theme="neu"] .macro,
+[data-theme="neu"] .thumb,
+[data-theme="neu"] .row-ic,
+[data-theme="neu"] .segmented,
+[data-theme="neu"] .meter,
+[data-theme="neu"] .demo-kv code,
+[data-theme="neu"] .demo-note-list li {
+    box-shadow: inset 3px 3px 7px var(--neu-lo), inset -3px -3px 7px var(--neu-hi);
+    border: 0;
+}
+[data-theme="neu"] .seg.is-on { box-shadow: var(--sh-sm); background: var(--surface); }
+
+[data-theme="neu"] .btn-primary { box-shadow: var(--sh-accent); }
+[data-theme="neu"] .btn-primary:active,
+[data-theme="neu"] .btn-ghost:active {
+    box-shadow: inset 3px 3px 8px rgba(27, 103, 60, .35), inset -3px -3px 8px rgba(255, 255, 255, .35);
+}
+[data-theme="neu"] .btn-ghost,
+[data-theme="neu"] .btn-soft,
+[data-theme="neu"] .btn-danger {
+    background: var(--surface); box-shadow: var(--sh-sm);
+}
+[data-theme="neu"] .icon-btn:hover { box-shadow: var(--sh-xs); background: var(--surface); }
+[data-theme="neu"] .icon-btn:active { box-shadow: inset 2px 2px 5px var(--neu-lo), inset -2px -2px 5px var(--neu-hi); }
+
+[data-theme="neu"] .tabbar {
+    background: var(--surface);
+    border: 0;
+    box-shadow: var(--sh-lg);
+    backdrop-filter: none;
+}
+[data-theme="neu"] .tab.is-active { background: transparent; box-shadow: inset 3px 3px 7px var(--neu-lo), inset -3px -3px 7px var(--neu-hi); }
+[data-theme="neu"] .rail { background: var(--bg); border-right: 0; box-shadow: 6px 0 18px rgba(34, 49, 41, .06); }
+[data-theme="neu"] .rail-item.is-active { box-shadow: inset 3px 3px 7px var(--neu-lo), inset -3px -3px 7px var(--neu-hi); background: transparent; }
+[data-theme="neu"] .appbar, [data-theme="neu"] .site-nav { background: var(--bg); backdrop-filter: none; }
+[data-theme="neu"] .site-nav.is-stuck { box-shadow: 0 6px 18px rgba(34, 49, 41, .07); border-bottom: 0; }
+[data-theme="neu"] .row + .row { border-top: 1px solid rgba(34, 49, 41, .06); }
+[data-theme="neu"] .kv + .kv { border-top: 1px solid rgba(34, 49, 41, .06); }
+
+/* ════════════════════════════════════════════════════════════
+   AURA
+   ════════════════════════════════════════════════════════════ */
+[data-theme="aura"] body { background: var(--bg); }
+
+[data-theme="aura"] .card,
+[data-theme="aura"] .stat,
+[data-theme="aura"] .prob,
+[data-theme="aura"] .role,
+[data-theme="aura"] .flow li,
+[data-theme="aura"] .faq,
+[data-theme="aura"] .stat-strip,
+[data-theme="aura"] .spec-band > div,
+[data-theme="aura"] .shot,
+[data-theme="aura"] .demo-note,
+[data-theme="aura"] .demo-card,
+[data-theme="aura"] .date-strip,
+[data-theme="aura"] .hero-chips li,
+[data-theme="aura"] .searchbar,
+[data-theme="aura"] .field-box,
+[data-theme="aura"] textarea.ta,
+[data-theme="aura"] .mode {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    backdrop-filter: blur(16px) saturate(1.3);
+    -webkit-backdrop-filter: blur(16px) saturate(1.3);
+}
+[data-theme="aura"] .spec-band { background: var(--line); }
+
+/* Tepi berpendar pada elemen yang sedang aktif atau di-hover */
+[data-theme="aura"] .card:hover,
+[data-theme="aura"] .prob:hover,
+[data-theme="aura"] .role:hover,
+[data-theme="aura"] .flow li:hover,
+[data-theme="aura"] .faq[open],
+[data-theme="aura"] .field-box:focus-within,
+[data-theme="aura"] .tab.is-active,
+[data-theme="aura"] .rail-item.is-active { box-shadow: var(--aura-glow); }
+
+[data-theme="aura"] .btn-primary { box-shadow: var(--sh-accent); }
+[data-theme="aura"] .btn-ghost { background: var(--surface); box-shadow: inset 0 0 0 1px var(--line-2); }
+[data-theme="aura"] .tabbar,
+[data-theme="aura"] .rail,
+[data-theme="aura"] .appbar,
+[data-theme="aura"] .site-nav {
+    background: color-mix(in srgb, var(--bg) 62%, transparent);
+    backdrop-filter: blur(22px) saturate(1.4);
+    -webkit-backdrop-filter: blur(22px) saturate(1.4);
+}
+[data-theme="aura"] .rail { border-right: 1px solid var(--line); }
+[data-theme="aura"] .cta-band { background: linear-gradient(135deg, rgba(74,222,128,.16), rgba(34,211,238,.12)); box-shadow: inset 0 1px 0 var(--line); }
+[data-theme="aura"] .site-foot { background: color-mix(in srgb, var(--bg) 80%, transparent); }
+[data-theme="aura"] .hero-grid-lines { opacity: .9; }
+[data-theme="aura"] .thumb svg,
+[data-theme="aura"] .stat-ic { filter: drop-shadow(0 0 6px currentColor); }
+
+/* Teks angka besar ikut berpendar tipis */
+[data-theme="aura"] .fsi-num b,
+[data-theme="aura"] .stat-val,
+[data-theme="aura"] .stat-strip b { text-shadow: 0 0 22px currentColor; }
+
+/* ════════════════════════════════════════════════════════════
+   EFEK KARTU BERSAMA (semua mode)
+   ════════════════════════════════════════════════════════════ */
+
+/* Kilau menyapu saat kursor melewati kartu */
+.has-shine { position: relative; overflow: hidden; isolation: isolate; }
+.has-shine::after {
+    content: '';
+    position: absolute; inset: -60% -10%;
+    background: linear-gradient(105deg, transparent 38%,
+        color-mix(in srgb, var(--accent) 16%, transparent) 48%, transparent 58%);
+    transform: translateX(-130%);
+    transition: transform 900ms var(--ease);
+    pointer-events: none;
+    z-index: 2;
+}
+.has-shine:hover::after { transform: translateX(130%); }
+
+/* Sorot mengikuti kursor — posisi diisi oleh js/fx.js */
+.has-spot { position: relative; }
+.has-spot::before {
+    content: '';
+    position: absolute; inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(240px circle at var(--mx, 50%) var(--my, 50%),
+                color-mix(in srgb, var(--accent) 10%, transparent), transparent 62%);
+    opacity: 0;
+    transition: opacity var(--dur-3) var(--ease);
+    pointer-events: none;
+}
+.has-spot:hover::before { opacity: 1; }
+
+/* Dekorasi SVG di dalam kartu */
+.card-deco {
+    position: absolute;
+    pointer-events: none;
+    color: var(--accent);
+    opacity: .14;
+    z-index: 0;
+}
+.card-deco.at-tr { top: -6px; right: -6px; }
+.card-deco.at-br { bottom: -8px; right: -8px; }
+.card-deco.at-bl { bottom: -10px; left: -10px; }
+[data-theme="aura"] .card-deco { opacity: .26; }
+[data-theme="neu"] .card-deco { opacity: .10; }
+/* Angkat isi kartu di atas dekorasi — TAPI jangan kenai dekorasinya
+   sendiri: `.card > *` lebih spesifik daripada `.card-deco`, jadi tanpa
+   :not() ia menimpa position:absolute menjadi relative dan dekorasi
+   ikut alur, mendorong isi kartu ke bawah. */
+.card > *:not(.card-deco),
+.prob > *:not(.card-deco),
+.role > *:not(.card-deco),
+.flow li > *:not(.card-deco),
+.faq > *:not(.card-deco),
+.demo-note > *:not(.card-deco) { position: relative; z-index: 1; }
+
+/* ════════════════════════════════════════════════════════════
+   PEMILIH MODE
+   ════════════════════════════════════════════════════════════ */
+.mode-picker { display: grid; gap: 8px; }
+.mode-picker.is-compact {
+    grid-template-columns: repeat(4, auto);
+    gap: 4px; padding: 4px;
+    background: var(--inset);
+    border-radius: var(--r-pill);
+}
+
+.mode-opt {
+    position: relative;
+    display: flex; align-items: center; gap: 12px;
+    padding: 11px 14px;
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    background: var(--surface);
+    color: var(--ink-2);
+    cursor: pointer; text-align: left;
+    transition: border-color var(--dur-2) var(--ease), color var(--dur-2) var(--ease),
+                box-shadow var(--dur-2) var(--ease), transform var(--dur-1) var(--ease);
+}
+.mode-opt:hover { color: var(--ink); border-color: var(--line-2); }
+.mode-opt:active { transform: scale(.985); }
+.mode-opt.is-on { border-color: var(--accent); color: var(--ink); box-shadow: 0 0 0 3px var(--accent-faint); }
+
+.mode-opt-ic { display: grid; place-items: center; width: 34px; height: 34px; flex: none; border-radius: var(--r-sm); background: var(--inset); }
+.mode-opt.is-on .mode-opt-ic { background: var(--accent-soft); color: var(--accent-deep); }
+.mode-opt-txt { flex: 1; display: flex; flex-direction: column; line-height: 1.35; min-width: 0; }
+.mode-opt-txt b { font-size: .89rem; }
+.mode-opt-txt i { font-style: normal; font-size: .76rem; color: var(--ink-3); }
+
+/* Contoh warna tiap mode — dibuat dari gradien, bukan gambar */
+.mode-swatch { width: 20px; height: 20px; flex: none; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(127,127,127,.25); }
+.mode-swatch-light { background: linear-gradient(135deg, #ffffff 50%, #2f9e5f 50%); }
+.mode-swatch-dark  { background: linear-gradient(135deg, #121d16 50%, #4ade80 50%); }
+.mode-swatch-neu   { background: linear-gradient(135deg, #e4ebe7 50%, #c2cec7 50%); }
+.mode-swatch-aura  { background: linear-gradient(135deg, #0891b2 34%, #16a34a 34%, #16a34a 67%, #7c3aed 67%); }
+
+.mode-picker.is-compact .mode-opt {
+    padding: 7px; border: 0; background: transparent; box-shadow: none;
+    border-radius: var(--r-pill);
+}
+.mode-picker.is-compact .mode-opt-ic { width: 26px; height: 26px; background: transparent; }
+.mode-picker.is-compact .mode-swatch { display: none; }
+.mode-picker.is-compact .mode-opt.is-on { background: var(--surface); box-shadow: var(--sh-xs); color: var(--accent-deep); }
+.mode-picker.is-compact .mode-opt.is-on .mode-opt-ic { background: transparent; }
+
+/* Di layar lebar pemilih mode sudah tampil, jadi tombol siklus
+   jadi mubazir; di layar sempit justru sebaliknya. */
+@media (min-width: 901px) { .nav-actions > [data-act="theme"] { display: none; } }
+@media (max-width: 900px) { .nav-actions .mode-picker.is-compact { display: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+    .fx-aurora i, .fx-scan { animation: none; }
+    .has-shine::after { transition: none; }
+}

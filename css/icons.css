@@ -1,0 +1,130 @@
+/* ============================================================
+   NUTRICENSE — Animasi ikon
+   Dua lapis:
+   1. .ic-draw  → garis "ditulis" saat ikon pertama muncul.
+   2. .ic-*     → reaksi gerak saat hover / saat item aktif.
+   Semua memakai transform/opacity saja supaya tetap 60fps.
+   ============================================================ */
+
+.ic-wrap { display: inline-flex; align-items: center; justify-content: center; }
+
+.ic {
+    display: block;
+    overflow: visible;
+    transform-origin: 50% 50%;
+    transition: transform var(--dur-2) var(--ease-spring), opacity var(--dur-2) var(--ease);
+}
+
+/* ── 1. Draw-on: garis tergambar dari nol ── */
+.ic-draw path,
+.ic-draw circle,
+.ic-draw rect {
+    stroke-dasharray: 120;
+    stroke-dashoffset: 120;
+    animation: ic-draw 900ms var(--ease) forwards;
+}
+.ic-draw path:nth-child(2), .ic-draw circle:nth-child(2), .ic-draw rect:nth-child(2) { animation-delay: 90ms; }
+.ic-draw path:nth-child(3), .ic-draw circle:nth-child(3), .ic-draw rect:nth-child(3) { animation-delay: 180ms; }
+.ic-draw path:nth-child(4), .ic-draw circle:nth-child(4), .ic-draw rect:nth-child(4) { animation-delay: 270ms; }
+.ic-draw path:nth-child(5), .ic-draw circle:nth-child(5), .ic-draw rect:nth-child(5) { animation-delay: 360ms; }
+
+@keyframes ic-draw { to { stroke-dashoffset: 0; } }
+
+/* ── 2. Gerak per ikon ──
+   Dipicu oleh hover pada tombol/baris induk, atau kelas .is-active. */
+.ic-host:hover  .ic,
+.ic-host:focus-visible .ic,
+button:hover    .ic,
+a:hover         .ic,
+.is-active      .ic { animation-play-state: running; }
+
+/* Helper: definisikan animasi hanya saat dipicu */
+button:hover .ic-swing,   a:hover .ic-swing,   .is-active .ic-swing,   .ic-host:hover .ic-swing   { animation: ic-swing 700ms var(--ease); }
+button:hover .ic-pop,     a:hover .ic-pop,     .is-active .ic-pop,     .ic-host:hover .ic-pop     { animation: ic-pop 480ms var(--ease-spring); }
+button:hover .ic-buzz,    a:hover .ic-buzz,    .is-active .ic-buzz,    .ic-host:hover .ic-buzz    { animation: ic-buzz 420ms linear; }
+button:hover .ic-spin-h,  a:hover .ic-spin-h,  .is-active .ic-spin-h,  .ic-host:hover .ic-spin-h  { animation: ic-spin 900ms var(--ease-in-out); }
+button:hover .ic-nudge,   a:hover .ic-nudge,   .is-active .ic-nudge,   .ic-host:hover .ic-nudge   { animation: ic-nudge 520ms var(--ease-spring); }
+button:hover .ic-nudge-back, a:hover .ic-nudge-back, .ic-host:hover .ic-nudge-back                { animation: ic-nudge-back 520ms var(--ease-spring); }
+button:hover .ic-sway,    a:hover .ic-sway,    .is-active .ic-sway,    .ic-host:hover .ic-sway    { animation: ic-sway 900ms var(--ease-in-out); }
+button:hover .ic-twinkle, a:hover .ic-twinkle, .is-active .ic-twinkle, .ic-host:hover .ic-twinkle { animation: ic-twinkle 800ms var(--ease); }
+button:hover .ic-beat,    a:hover .ic-beat,    .is-active .ic-beat,    .ic-host:hover .ic-beat    { animation: ic-beat 780ms var(--ease-in-out); }
+button:hover .ic-rise,    a:hover .ic-rise,    .is-active .ic-rise,    .ic-host:hover .ic-rise    { animation: ic-rise 620ms var(--ease-spring); }
+button:hover .ic-drip,    a:hover .ic-drip,    .is-active .ic-drip,    .ic-host:hover .ic-drip    { animation: ic-drip 780ms var(--ease-in-out); }
+button:hover .ic-drift,   a:hover .ic-drift,   .is-active .ic-drift,   .ic-host:hover .ic-drift   { animation: ic-drift 900ms var(--ease-in-out); }
+button:hover .ic-roll,    a:hover .ic-roll,    .is-active .ic-roll,    .ic-host:hover .ic-roll    { animation: ic-roll 760ms var(--ease); }
+button:hover .ic-fly,     a:hover .ic-fly,     .is-active .ic-fly,     .ic-host:hover .ic-fly     { animation: ic-fly 640ms var(--ease); }
+button:hover .ic-dip,     a:hover .ic-dip,     .is-active .ic-dip,     .ic-host:hover .ic-dip     { animation: ic-dip 620ms var(--ease-spring); }
+button:hover .ic-turn,    a:hover .ic-turn,    .is-active .ic-turn,    .ic-host:hover .ic-turn    { animation: ic-turn 500ms var(--ease-spring); }
+button:hover .ic-shutter, a:hover .ic-shutter, .is-active .ic-shutter, .ic-host:hover .ic-shutter { animation: ic-shutter 560ms var(--ease-spring); }
+
+/* Ikon scan punya garis pemindai yang jalan terus */
+.ic-scanline path:last-child { animation: ic-scanline 2.2s var(--ease-in-out) infinite; transform-origin: 50% 50%; }
+
+@keyframes ic-swing {
+    0%, 100% { transform: rotate(0); }
+    20% { transform: rotate(-14deg); } 45% { transform: rotate(11deg); }
+    70% { transform: rotate(-6deg); }  88% { transform: rotate(3deg); }
+}
+@keyframes ic-pop {
+    0% { transform: scale(1); } 42% { transform: scale(1.22); } 100% { transform: scale(1); }
+}
+@keyframes ic-buzz {
+    0%,100% { transform: translateX(0); }
+    20% { transform: translateX(-2px); } 40% { transform: translateX(2px); }
+    60% { transform: translateX(-1.5px); } 80% { transform: translateX(1.5px); }
+}
+@keyframes ic-spin { to { transform: rotate(180deg); } }
+@keyframes ic-nudge {
+    0%,100% { transform: translateX(0); } 45% { transform: translateX(3px); }
+}
+@keyframes ic-nudge-back {
+    0%,100% { transform: translateX(0); } 45% { transform: translateX(-3px); }
+}
+@keyframes ic-sway {
+    0%,100% { transform: rotate(0); } 30% { transform: rotate(-9deg); } 65% { transform: rotate(7deg); }
+}
+@keyframes ic-twinkle {
+    0%,100% { transform: scale(1) rotate(0); opacity: 1; }
+    40% { transform: scale(1.18) rotate(18deg); opacity: .82; }
+}
+@keyframes ic-beat {
+    0%,100% { transform: scale(1); } 25% { transform: scale(1.14); } 50% { transform: scale(.96); }
+}
+@keyframes ic-rise {
+    0% { transform: translateY(0); } 45% { transform: translateY(-3px); } 100% { transform: translateY(0); }
+}
+@keyframes ic-drip {
+    0%,100% { transform: translateY(0) scaleY(1); }
+    40% { transform: translateY(2px) scaleY(1.08); }
+}
+@keyframes ic-drift {
+    0%,100% { transform: translateX(0); } 50% { transform: translateX(2.5px); }
+}
+@keyframes ic-roll {
+    0% { transform: translateX(-3px); } 100% { transform: translateX(0); }
+}
+@keyframes ic-fly {
+    0% { transform: translate(0,0); } 45% { transform: translate(4px,-4px); } 100% { transform: translate(0,0); }
+}
+@keyframes ic-dip {
+    0%,100% { transform: translateY(0); } 50% { transform: translateY(3px); }
+}
+@keyframes ic-turn {
+    0% { transform: rotate(0); } 100% { transform: rotate(90deg); }
+}
+@keyframes ic-shutter {
+    0%,100% { transform: scale(1); } 35% { transform: scale(.86); } 70% { transform: scale(1.06); }
+}
+@keyframes ic-scanline {
+    0%, 100% { transform: translateY(-4px); opacity: .35; }
+    50%      { transform: translateY(4px);  opacity: 1; }
+}
+
+/* ── Lordicon ── */
+.lord-holder { display: inline-flex; align-items: center; justify-content: center; color: var(--accent); }
+.lord-fallback { animation: ic-twinkle 2.6s var(--ease-in-out) infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+    .ic, .ic-draw path, .ic-draw circle, .ic-draw rect,
+    .ic-scanline path:last-child, .lord-fallback { animation: none !important; stroke-dashoffset: 0 !important; }
+}

@@ -1,0 +1,48 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper: is user authenticated
+    function isAuth() {
+      return request.auth != null;
+    }
+
+    // Helper: matches user identity
+    function isOwner(userId) {
+      return request.auth.uid == userId;
+    }
+
+    // Rules for Scans collection
+    match /scans/{scanId} {
+      allow read: if true; // allow everyone to read dashboard
+      allow create, write: if isAuth(); // must be logged in (google/email/anon) to insert scans
+    }
+
+    // Rules for Sensor Logs collection
+    match /sensorLogs/{logId} {
+      allow read: if true;
+      allow create: if isAuth(); // only device/user session can log sensors
+      allow update, delete: if false; // telemetry shouldn't be edited
+    }
+
+    // Rules for Alerts collection
+    match /alerts/{alertId} {
+      allow read: if true;
+      allow create, update: if isAuth();
+      allow delete: if false;
+    }
+
+    // Rules for Users collection
+    match /users/{userId} {
+      allow read: if true;
+      allow write: if isAuth() && isOwner(userId);
+    }
+
+    // Rules for Schools metadata
+    match /schools/{schoolId} {
+      allow read: if true;
+      allow write: if isAuth();
+    }
+  }
+}

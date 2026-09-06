@@ -1,0 +1,310 @@
+/* ============================================================
+   NUTRICENSE — Design Tokens
+   Bahasa desain: "clean green health" — permukaan putih,
+   kartu sangat membulat, bayangan lembut, aksen hijau pekat.
+   Aksen berganti per peran (role accent).
+   ============================================================ */
+
+:root {
+    color-scheme: light;
+
+    /* ===== Skala hijau brand ===== */
+    --g-50:  #f0f9f2;
+    --g-100: #dcf1e1;
+    --g-200: #bae3c6;
+    --g-300: #8ed0a3;
+    --g-400: #59b67c;
+    --g-500: #2f9e5f;   /* hijau utama */
+    --g-600: #218049;
+    --g-700: #1b673c;
+    --g-800: #175232;
+    --g-900: #0f3a24;
+
+    /* Lime dari logo — dipakai untuk "spark"/dekorasi */
+    --lime-400: #a3d152;
+    --lime-500: #8cc63f;
+    --lime-600: #6fa32c;
+
+    /* Ungu — peran Pemerintah */
+    --p-50:  #f2f0fd;
+    --p-100: #e6e2fb;
+    --p-300: #b3a8f0;
+    --p-500: #6d5bd0;
+    --p-600: #5a48bd;
+    --p-700: #48389c;
+
+    /* ===== Aksen aktif (di-override per peran) ===== */
+    --accent:        var(--g-500);
+    --accent-strong: var(--g-600);
+    --accent-deep:   var(--g-700);
+    --accent-soft:   var(--g-100);
+    --accent-faint:  var(--g-50);
+    --accent-on:     #ffffff;
+    --accent-grad:   linear-gradient(135deg, var(--g-500), var(--g-700));
+
+    /* ===== Semantik ===== */
+    --ok:        #2f9e5f;
+    --ok-soft:   #dcf1e1;
+    --warn:      #e08b1f;
+    --warn-soft: #fdf0d9;
+    --bad:       #d94b4b;
+    --bad-soft:  #fbe4e4;
+    --info:      #3b82c4;
+    --info-soft: #e2eef9;
+
+    /* Macro chips (kalori / protein / karbo / lemak) */
+    --macro-kal:     #f7efe2;
+    --macro-kal-ink: #a9752a;
+    --macro-pro:     #e6f2ea;
+    --macro-pro-ink: #218049;
+    --macro-krb:     #eaf1f8;
+    --macro-krb-ink: #3b6ea5;
+    --macro-lem:     #fdf1e6;
+    --macro-lem-ink: #b96a2b;
+
+    /* ===== Permukaan ===== */
+    --bg:        #f4f7f4;
+    --bg-tint:   #eef4ef;
+    --surface:   #ffffff;
+    --surface-2: #f7faf7;
+    --inset:     #f1f5f2;
+    --scrim:     rgba(12, 30, 20, 0.44);
+
+    /* ===== Teks ===== */
+    --ink:       #10221a;
+    --ink-2:     #435449;
+    --ink-3:     #77897e;
+    --ink-4:     #a3b2a9;
+
+    /* ===== Garis ===== */
+    --line:      #e6ece7;
+    --line-2:    #d3ddd6;
+
+    /* ===== Bayangan (lembut, hijau-netral) ===== */
+    --sh-xs: 0 1px 2px rgba(16, 34, 26, .05);
+    --sh-sm: 0 2px 8px rgba(16, 34, 26, .06);
+    --sh-md: 0 6px 20px rgba(16, 34, 26, .07);
+    --sh-lg: 0 14px 40px rgba(16, 34, 26, .10);
+    --sh-accent: 0 10px 26px rgba(47, 158, 95, .28);
+
+    /* ===== Radius ===== */
+    --r-xs: 8px;
+    --r-sm: 12px;
+    --r-md: 16px;
+    --r-lg: 20px;
+    --r-xl: 26px;
+    --r-2xl: 34px;
+    --r-pill: 999px;
+
+    /* ===== Jarak ===== */
+    --sp-1: 4px;  --sp-2: 8px;  --sp-3: 12px; --sp-4: 16px;
+    --sp-5: 20px; --sp-6: 24px; --sp-7: 32px; --sp-8: 44px;
+
+    /* ===== Tipografi ===== */
+    --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-num: 'Space Grotesk', 'Plus Jakarta Sans', sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, Consolas, monospace;
+
+    /* ===== Gerak ===== */
+    --ease: cubic-bezier(.22, 1, .36, 1);
+    --ease-in-out: cubic-bezier(.65, 0, .35, 1);
+    --ease-spring: cubic-bezier(.34, 1.56, .64, 1);
+    --dur-1: 140ms;
+    --dur-2: 240ms;
+    --dur-3: 380ms;
+    --dur-4: 560ms;
+
+    /* ===== Layout ===== */
+    --shell-max: 1320px;
+    --rail-w: 264px;
+    --nav-h: 68px;
+    --safe-b: env(safe-area-inset-bottom, 0px);
+    --safe-t: env(safe-area-inset-top, 0px);
+}
+
+/* ===== Aksen per peran ===== */
+[data-role="pemerintah"] {
+    --accent:        var(--p-500);
+    --accent-strong: var(--p-600);
+    --accent-deep:   var(--p-700);
+    --accent-soft:   var(--p-100);
+    --accent-faint:  var(--p-50);
+    --accent-grad:   linear-gradient(135deg, var(--p-500), var(--p-700));
+    --sh-accent: 0 10px 26px rgba(109, 91, 208, .28);
+}
+
+/* ===== Mode gelap ===== */
+[data-theme="dark"] {
+    color-scheme: dark;
+
+    --accent:        #4ade80;
+    --accent-strong: #34d07a;
+    --accent-deep:   #22c55e;
+    --accent-soft:   #14301f;
+    --accent-faint:  #0f261a;
+    --accent-on:     #06180e;
+    --accent-grad:   linear-gradient(135deg, #4ade80, #159b52);
+
+    --ok: #4ade80;       --ok-soft: #14301f;
+    --warn: #f0b45c;     --warn-soft: #33260f;
+    --bad: #f28a8a;      --bad-soft: #341717;
+    --info: #6cb0e8;     --info-soft: #14283a;
+
+    --macro-kal: #2e2617; --macro-kal-ink: #e0b878;
+    --macro-pro: #14301f; --macro-pro-ink: #6ee7a0;
+    --macro-krb: #16273a; --macro-krb-ink: #8fc0ef;
+    --macro-lem: #32241a; --macro-lem-ink: #e5a97a;
+
+    --bg:        #0a120d;
+    --bg-tint:   #0d1811;
+    --surface:   #121d16;
+    --surface-2: #16241b;
+    --inset:     #16241b;
+    --scrim:     rgba(0, 0, 0, .6);
+
+    --ink:   #e8f2ea;
+    --ink-2: #b6c6bb;
+    --ink-3: #85978b;
+    --ink-4: #5f7268;
+
+    --line:   #203026;
+    --line-2: #2c4034;
+
+    --sh-xs: 0 1px 2px rgba(0,0,0,.4);
+    --sh-sm: 0 2px 8px rgba(0,0,0,.4);
+    --sh-md: 0 6px 20px rgba(0,0,0,.45);
+    --sh-lg: 0 14px 40px rgba(0,0,0,.5);
+    --sh-accent: 0 10px 26px rgba(74, 222, 128, .18);
+}
+[data-theme="dark"][data-role="pemerintah"] {
+    --accent: #a99bf5; --accent-strong: #9384f0; --accent-deep: #7d6be8;
+    --accent-soft: #221c3d; --accent-faint: #1a1630; --accent-on: #100c22;
+    --accent-grad: linear-gradient(135deg, #a99bf5, #6d5bd0);
+    --sh-accent: 0 10px 26px rgba(169, 155, 245, .2);
+}
+
+/* ════════════════════════════════════════════════════════════
+   MODE 3 — NEUMORPHISM
+   Kunci gaya ini: permukaan kartu BERWARNA SAMA dengan latar,
+   dan kedalaman datang sepenuhnya dari sepasang bayangan
+   (terang di kiri-atas, gelap di kanan-bawah). Karena itu tidak
+   ada garis tepi sama sekali — border justru merusak ilusinya.
+   ════════════════════════════════════════════════════════════ */
+[data-theme="neu"] {
+    color-scheme: light;
+
+    --bg:        #e4ebe7;
+    --bg-tint:   #e0e8e3;
+    --surface:   #e4ebe7;          /* sengaja sama dengan --bg */
+    --surface-2: #e8efeb;
+    --inset:     #dde5e0;
+    --scrim:     rgba(20, 34, 27, .38);
+
+    --ink:   #223129;
+    --ink-2: #4a5d53;
+    --ink-3: #78897f;
+    --ink-4: #9aa9a0;
+
+    --line:   transparent;         /* neumorfisme tidak memakai garis */
+    --line-2: rgba(34, 49, 41, .10);
+
+    --accent:        #2f9e5f;
+    --accent-strong: #26834e;
+    --accent-deep:   #1b673c;
+    --accent-soft:   #d3e6da;
+    --accent-faint:  #dcece3;
+    --accent-on:     #ffffff;
+    --accent-grad:   linear-gradient(135deg, #35ab68, #1b673c);
+
+    --ok-soft:   #d6e9dd;
+    --warn-soft: #efe6d2;
+    --bad-soft:  #eddadb;
+    --info-soft: #d9e3ee;
+
+    /* Pasangan bayangan — dipakai oleh css/modes.css */
+    --neu-hi: #f7fcf9;
+    --neu-lo: #c2cec7;
+    --neu-d:  6px;                 /* jarak offset */
+    --neu-b:  14px;                /* radius blur */
+
+    --sh-xs: 2px 2px 5px var(--neu-lo), -2px -2px 5px var(--neu-hi);
+    --sh-sm: 4px 4px 9px var(--neu-lo), -4px -4px 9px var(--neu-hi);
+    --sh-md: var(--neu-d) var(--neu-d) var(--neu-b) var(--neu-lo),
+             calc(var(--neu-d) * -1) calc(var(--neu-d) * -1) var(--neu-b) var(--neu-hi);
+    --sh-lg: 10px 10px 22px var(--neu-lo), -10px -10px 22px var(--neu-hi);
+    --sh-accent: 5px 5px 12px rgba(27, 103, 60, .28), -5px -5px 12px var(--neu-hi);
+}
+[data-theme="neu"][data-role="pemerintah"] {
+    --accent: #6d5bd0; --accent-strong: #5a48bd; --accent-deep: #48389c;
+    --accent-soft: #ded9f2; --accent-faint: #e6e2f7;
+    --accent-grad: linear-gradient(135deg, #7d6be0, #48389c);
+    --sh-accent: 5px 5px 12px rgba(72, 56, 156, .26), -5px -5px 12px var(--neu-hi);
+}
+
+/* ════════════════════════════════════════════════════════════
+   MODE 4 — AURA
+   Latar gelap pekat dengan kabut warna, kartu kaca tembus
+   pandang, dan tepi yang berpendar. Aksen dinaikkan
+   kecerahannya karena kontras terhadap latar gelap jauh lebih
+   longgar daripada mode terang.
+   ════════════════════════════════════════════════════════════ */
+[data-theme="aura"] {
+    color-scheme: dark;
+
+    --bg:        #060d0a;
+    --bg-tint:   #08120e;
+    --surface:   rgba(255, 255, 255, .045);
+    --surface-2: rgba(255, 255, 255, .075);
+    --inset:     rgba(255, 255, 255, .06);
+    --scrim:     rgba(2, 8, 5, .68);
+
+    --ink:   #e9f7ef;
+    --ink-2: #b2ccbd;
+    --ink-3: #8aa697;
+    --ink-4: #647d70;
+
+    --line:   rgba(255, 255, 255, .10);
+    --line-2: rgba(255, 255, 255, .18);
+
+    --accent:        #4ade80;
+    --accent-strong: #34d07a;
+    --accent-deep:   #86efac;      /* di latar gelap, "deep" justru lebih terang */
+    --accent-soft:   rgba(74, 222, 128, .16);
+    --accent-faint:  rgba(74, 222, 128, .09);
+    --accent-on:     #04180d;
+    --accent-grad:   linear-gradient(135deg, #4ade80, #22d3ee);
+
+    --ok: #4ade80;    --ok-soft:   rgba(74, 222, 128, .16);
+    --warn: #fbbf24;  --warn-soft: rgba(251, 191, 36, .16);
+    --bad: #fb7185;   --bad-soft:  rgba(251, 113, 133, .16);
+    --info: #38bdf8;  --info-soft: rgba(56, 189, 248, .16);
+
+    --macro-kal: rgba(251, 191, 36, .14);  --macro-kal-ink: #fcd34d;
+    --macro-pro: rgba(74, 222, 128, .14);  --macro-pro-ink: #86efac;
+    --macro-krb: rgba(56, 189, 248, .14);  --macro-krb-ink: #7dd3fc;
+    --macro-lem: rgba(251, 146, 60, .14);  --macro-lem-ink: #fdba74;
+
+    --sh-xs: 0 1px 2px rgba(0, 0, 0, .5);
+    --sh-sm: 0 2px 10px rgba(0, 0, 0, .5);
+    --sh-md: 0 8px 26px rgba(0, 0, 0, .55);
+    --sh-lg: 0 18px 50px rgba(0, 0, 0, .62);
+    --sh-accent: 0 0 26px rgba(74, 222, 128, .38), 0 8px 24px rgba(0, 0, 0, .5);
+
+    --aura-1: #16a34a;
+    --aura-2: #0891b2;
+    --aura-3: #7c3aed;
+    --aura-glow: 0 0 0 1px rgba(74, 222, 128, .16), 0 0 22px rgba(74, 222, 128, .14);
+}
+[data-theme="aura"][data-role="pemerintah"] {
+    --accent: #a99bf5; --accent-strong: #9384f0; --accent-deep: #c7bdff;
+    --accent-soft: rgba(169, 155, 245, .18); --accent-faint: rgba(169, 155, 245, .10);
+    --accent-on: #0f0a24;
+    --accent-grad: linear-gradient(135deg, #a99bf5, #38bdf8);
+    --sh-accent: 0 0 26px rgba(169, 155, 245, .40), 0 8px 24px rgba(0, 0, 0, .5);
+    --aura-1: #6d28d9; --aura-2: #2563eb; --aura-3: #0891b2;
+    --aura-glow: 0 0 0 1px rgba(169, 155, 245, .18), 0 0 22px rgba(169, 155, 245, .16);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    :root { --dur-1: 1ms; --dur-2: 1ms; --dur-3: 1ms; --dur-4: 1ms; }
+}

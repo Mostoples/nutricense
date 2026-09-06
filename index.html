@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#2f9e5f">
+<title>Nutricense — AI-Powered Smart Food Safety &amp; Nutritional Assessment Box</title>
+<meta name="description" content="NUTRICENSE: An AI-Powered Smart Food Safety and Nutritional Assessment Box for School Feeding Programs. Kamera AI dan sensor multi-parameter memverifikasi keamanan serta gizi setiap porsi MBG sebelum sampai ke siswa.">
+<link rel="canonical" href="https://nutricense.web.app/">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="NUTRICENSE — AI-Powered Smart Food Safety and Nutritional Assessment Box">
+<meta property="og:description" content="Verifikasi keamanan dan gizi setiap porsi program Makan Bergizi Gratis secara real-time.">
+<meta property="og:url" content="https://nutricense.web.app/">
+
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem('nutricense-theme');
+      if (!t && matchMedia('(prefers-color-scheme: dark)').matches) t = 'dark';
+      document.documentElement.setAttribute('data-theme', t || 'light');
+    } catch (e) { document.documentElement.setAttribute('data-theme', 'light'); }
+  })();
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/icons.css">
+<link rel="stylesheet" href="css/site.css">
+<link rel="stylesheet" href="css/modes.css">
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body>
+
+<a class="skip" href="#main">Lompat ke konten utama</a>
+
+<!-- ═══════════ Navigasi ═══════════ -->
+<header class="site-nav" id="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top">
+      <span class="brand-mark" data-mark="34"></span>
+      <span class="brand-word">Nutricense</span>
+    </a>
+
+    <nav class="nav-links" id="nav-links" aria-label="Navigasi utama">
+      <a href="#masalah">Masalah</a>
+      <a href="#cara-kerja">Cara Kerja</a>
+      <a href="#produk">Produk</a>
+      <a href="#platform">Platform</a>
+      <a href="#tim">Tim</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+
+    <div class="nav-actions">
+      <div id="nav-modes"></div>
+      <button class="icon-btn" data-act="theme" aria-label="Ganti mode tampilan"><i data-ic="moon"></i></button>
+      <a class="btn btn-primary btn-sm ic-host" href="app.html">
+        <span>Buka Aplikasi</span><i data-ic="arrowRight" data-ic-size="17"></i>
+      </a>
+      <button class="icon-btn burger" id="burger" aria-label="Menu" aria-expanded="false"><i data-ic="menu"></i></button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ═══════════ Hero ═══════════ -->
+<section class="hero" id="top">
+  <div class="hero-video" aria-hidden="true">
+    <video id="hero-bg-video" autoplay muted loop playsinline preload="metadata"
+           poster="assets/img/product/06_hero_dark.webp">
+      <source src="assets/video/hero-loop.webm" type="video/webm">
+      <source src="assets/video/hero-loop.mp4" type="video/mp4">
+    </video>
+    <span class="hero-video-veil"></span>
+  </div>
+  <div class="hero-bg" data-decor="blobs"></div>
+  <div class="hero-grid-lines" aria-hidden="true"></div>
+
+  <div class="wrap hero-inner">
+    <div class="hero-copy">
+      <span class="pill reveal"><i data-ic="sparkle" data-ic-size="14"></i> Smart Nutrition &amp; Food Safety</span>
+
+      <h1 class="hero-title reveal">
+        <span class="hero-brand">NUTRICENSE</span>
+        <span class="hero-sep">:</span>
+        An <em>AI-Powered</em> Smart Food Safety and Nutritional Assessment Box
+        for School Feeding Programs
+      </h1>
+
+      <p class="hero-lead reveal">
+        Satu kotak pintar membaca apa yang tak terlihat mata — suhu, keasaman, gas pembusukan,
+        berat, dan kandungan gizi — lalu merangkumnya menjadi satu <b>Food Safety Index</b>,
+        sebelum porsi pertama sampai ke siswa.
+      </p>
+
+      <div class="hero-cta reveal">
+        <a class="btn btn-primary ic-host" href="app.html"><span>Coba Demo Aplikasi</span><i data-ic="arrowRight" data-ic-size="18"></i></a>
+        <a class="btn btn-ghost ic-host" href="#produk"><i data-ic="cpu" data-ic-size="18"></i><span>Lihat Produk</span></a>
+      </div>
+
+      <ul class="hero-chips reveal">
+        <li><i data-ic="camera" data-ic-size="15"></i> Kamera AI</li>
+        <li><i data-ic="thermometer" data-ic-size="15"></i> 4 Sensor Presisi</li>
+        <li><i data-ic="shield" data-ic-size="15"></i> Sterilisasi UV-C</li>
+        <li><i data-ic="activity" data-ic-size="15"></i> Telemetri Real-time</li>
+      </ul>
+    </div>
+
+    <div class="hero-stage reveal">
+      <canvas id="hero-3d" aria-label="Model 3D perangkat NC-BOX-09X"></canvas>
+      <span class="stage-badge"><i data-ic="refresh" data-ic-size="13"></i> Seret untuk memutar</span>
+      <span class="stage-tag mono">NC-BOX-09X</span>
+    </div>
+  </div>
+
+  <div class="hero-stats wrap">
+    <div class="stat-strip">
+      <div class="reveal"><b data-count="85240">0</b><span>Porsi terverifikasi / hari</span></div>
+      <div class="reveal"><b data-count="420">0</b><span>Sekolah terlayani</span></div>
+      <div class="reveal"><b data-count="125">0</b><span>Dapur SPPG terhubung</span></div>
+      <div class="reveal"><b data-count="92" data-suffix="/100">0</b><span>Rata-rata Food Safety Index</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ Masalah ═══════════ -->
+<section class="sect" id="masalah">
+  <div class="wrap">
+    <header class="sect-head reveal">
+      <span class="eyebrow">Masalah</span>
+      <h2>Jutaan porsi setiap hari, diperiksa dengan mata telanjang</h2>
+      <p>Program Makan Bergizi Gratis menyiapkan porsi dalam skala nasional. Satu porsi yang tak
+         terpantau bisa berarti satu kelas yang sakit — dan keputusan “aman disajikan” masih
+         sering bergantung pada tebakan, bukan data.</p>
+    </header>
+
+    <div class="prob-grid">
+      <article class="prob reveal">
+        <span class="prob-ic tone-bad"><i data-ic="alertCircle" data-ic-size="22"></i></span>
+        <h3>Keamanan tak terukur</h3>
+        <p>Suhu penyajian, keasaman, dan gas pembusukan tidak pernah benar-benar diukur di titik distribusi.</p>
+      </article>
+      <article class="prob reveal">
+        <span class="prob-ic tone-warn"><i data-ic="beaker" data-ic-size="22"></i></span>
+        <h3>Gizi hanya di atas kertas</h3>
+        <p>Menu direncanakan bergizi, tetapi porsi yang benar-benar sampai ke siswa jarang diverifikasi.</p>
+      </article>
+      <article class="prob reveal">
+        <span class="prob-ic tone-info"><i data-ic="fileText" data-ic-size="22"></i></span>
+        <h3>Pelaporan lambat</h3>
+        <p>Masalah baru diketahui setelah terjadi, karena laporan mengalir manual dan berlapis.</p>
+      </article>
+      <article class="prob reveal">
+        <span class="prob-ic tone-g"><i data-ic="chart" data-ic-size="22"></i></span>
+        <h3>Pengawasan tanpa data</h3>
+        <p>Pemerintah sulit membandingkan mutu antar-SPPG tanpa ukuran yang seragam dan objektif.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ Cara kerja ═══════════ -->
+<section class="sect sect-tint" id="cara-kerja">
+  <div class="wrap">
+    <header class="sect-head reveal">
+      <span class="eyebrow">Cara Kerja</span>
+      <h2>Enam langkah, di bawah satu menit</h2>
+      <p>Ompreng masuk, keputusan keluar. Tanpa input manual, tanpa laboratorium.</p>
+    </header>
+
+    <ol class="flow">
+      <li class="reveal"><span class="flow-n">1</span><i data-ic="package" data-ic-size="24"></i>
+        <h3>Letakkan ompreng</h3><p>Nampan MBG diletakkan pada ruang pindai.</p></li>
+      <li class="reveal"><span class="flow-n">2</span><i data-ic="shield" data-ic-size="24"></i>
+        <h3>Ruang tertutup</h3><p>Interlock memastikan area tertutup sebelum pemindaian mulai.</p></li>
+      <li class="reveal"><span class="flow-n">3</span><i data-ic="camera" data-ic-size="24"></i>
+        <h3>Kamera AI memindai</h3><p>Jenis makanan dikenali dan porsinya diestimasi.</p></li>
+      <li class="reveal"><span class="flow-n">4</span><i data-ic="cpu" data-ic-size="24"></i>
+        <h3>Sensor membaca</h3><p>Suhu, gas, dan berat terbaca serentak.</p></li>
+      <li class="reveal"><span class="flow-n">5</span><i data-ic="activity" data-ic-size="24"></i>
+        <h3>AI menghitung</h3><p>Nutrisi dan kesesuaian menu dihitung terhadap rencana SPPG.</p></li>
+      <li class="reveal"><span class="flow-n">6</span><i data-ic="checkCircle" data-ic-size="24"></i>
+        <h3>Hasil tampil</h3><p>AMAN, PERLU CEK, atau TIDAK SESUAI — plus rincian angkanya.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ═══════════ Produk ═══════════ -->
+<section class="sect" id="produk">
+  <div class="wrap">
+    <header class="sect-head reveal">
+      <span class="eyebrow">Produk</span>
+      <h2>NC-BOX-09X</h2>
+      <p>Smart Nutrition Verification System — dirancang untuk dapur SPPG dan ruang distribusi sekolah.</p>
+    </header>
+
+    <div class="prod-layout">
+      <div class="prod-stage reveal">
+        <canvas id="prod-3d" aria-label="Model 3D NC-BOX-09X"></canvas>
+        <div class="prod-controls">
+          <button class="chip-btn ic-host" data-prod="scan"><i data-ic="scan" data-ic-size="16"></i><span>Simulasi Pindai</span></button>
+          <button class="chip-btn ic-host" data-prod="safe"><i data-ic="checkCircle" data-ic-size="16"></i><span>Aman</span></button>
+          <button class="chip-btn ic-host" data-prod="warn"><i data-ic="alertCircle" data-ic-size="16"></i><span>Perlu Cek</span></button>
+          <button class="chip-btn ic-host" data-prod="bad"><i data-ic="xCircle" data-ic-size="16"></i><span>Tidak Sesuai</span></button>
+        </div>
+      </div>
+
+      <div class="prod-side">
+        <div class="feat-list">
+          <article class="feat reveal"><span><i data-ic="camera" data-ic-size="20"></i></span>
+            <div><h3>Kamera AI</h3><p>ESP32-CAM (OV2640) mengenali jenis makanan dan mengestimasi porsi.</p></div></article>
+          <article class="feat reveal"><span><i data-ic="thermometer" data-ic-size="20"></i></span>
+            <div><h3>Sensor Suhu MLX90614</h3><p>Mengukur suhu makanan tanpa kontak — higienis dan cepat.</p></div></article>
+          <article class="feat reveal"><span><i data-ic="wind" data-ic-size="20"></i></span>
+            <div><h3>Sensor Gas MQ-135</h3><p>Mendeteksi NH₃, CO₂, dan VOC sebagai penanda pembusukan.</p></div></article>
+          <article class="feat reveal"><span><i data-ic="package" data-ic-size="20"></i></span>
+            <div><h3>Load Cell HX711</h3><p>Menimbang porsi hingga 5 kg untuk estimasi nutrisi yang akurat.</p></div></article>
+          <article class="feat reveal"><span><i data-ic="sparkle" data-ic-size="20"></i></span>
+            <div><h3>UV-C LED 265 nm</h3><p>Mensterilkan area pindai otomatis setelah setiap penggunaan.</p></div></article>
+          <article class="feat reveal"><span><i data-ic="lock" data-ic-size="20"></i></span>
+            <div><h3>Safety Interlock</h3><p>Pemindaian hanya berjalan saat ruang benar-benar tertutup.</p></div></article>
+        </div>
+      </div>
+    </div>
+
+    <div class="spec-band reveal">
+      <div><span>Mikrokontroler</span><b>ESP32</b></div>
+      <div><span>Display</span><b>Touchscreen 4,3"</b></div>
+      <div><span>Dimensi</span><b>45 × 32 × 42 cm</b></div>
+      <div><span>Komunikasi</span><b>WiFi (IoT)</b></div>
+      <div><span>Catu Daya</span><b>12V 3A</b></div>
+      <div><span>Waktu Pindai</span><b>&lt; 60 detik</b></div>
+    </div>
+
+    <!-- Video produk (render Blender/Cycles) -->
+    <div class="prod-video reveal" id="video">
+      <video id="nc-video" playsinline preload="none" controls
+             poster="assets/img/product/01_hero.webp">
+        <source src="assets/video/nc-box-product.mp4" type="video/mp4">
+        Peramban Anda tidak mendukung pemutaran video.
+      </video>
+      <button class="video-cta" id="video-play" aria-label="Putar video produk">
+        <i data-ic="sparkle" data-ic-size="26"></i>
+        <span>Putar video produk<i>17 detik · 1080p</i></span>
+      </button>
+    </div>
+
+    <!-- Galeri render -->
+    <div class="prod-gallery" id="gallery">
+      <figure class="shot reveal is-wide">
+        <img src="assets/img/product/01_hero_sm.webp" data-full="assets/img/product/01_hero.webp"
+             alt="NC-BOX-09X tampak tiga-perempat" loading="lazy">
+        <figcaption>Tampak tiga-perempat</figcaption>
+      </figure>
+      <figure class="shot reveal">
+        <img src="assets/img/product/04_chamber_sm.webp" data-full="assets/img/product/04_chamber.webp"
+             alt="Ruang pindai dengan nampan MBG empat sekat" loading="lazy">
+        <figcaption>Ruang pindai &amp; nampan</figcaption>
+      </figure>
+      <figure class="shot reveal">
+        <img src="assets/img/product/03_screen_sm.webp" data-full="assets/img/product/03_screen.webp"
+             alt="Panel hasil analisis" loading="lazy">
+        <figcaption>Panel hasil analisis</figcaption>
+      </figure>
+      <figure class="shot reveal">
+        <img src="assets/img/product/02_front_sm.webp" data-full="assets/img/product/02_front.webp"
+             alt="Tampak depan NC-BOX-09X" loading="lazy">
+        <figcaption>Tampak depan</figcaption>
+      </figure>
+      <figure class="shot reveal">
+        <img src="assets/img/product/05_rear_sm.webp" data-full="assets/img/product/05_rear.webp"
+             alt="Tampak belakang: kisi ventilasi dan port" loading="lazy">
+        <figcaption>Ventilasi &amp; port</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ Platform ═══════════ -->
+<section class="sect sect-tint" id="platform">
+  <div class="wrap">
+    <header class="sect-head reveal">
+      <span class="eyebrow">Platform</span>
+      <h2>Satu data, empat sudut pandang</h2>
+      <p>Perangkat mengirim, aplikasi menerjemahkan — sesuai kebutuhan tiap peran.</p>
+    </header>
+
+    <!-- Showreel penggunaan aplikasi -->
+    <div class="prod-video reveal is-reel" id="showreel">
+      <video id="nc-reel" playsinline preload="none" controls
+             poster="assets/img/product/06_hero_dark.webp">
+        <source src="assets/video/nutricense-showreel.mp4" type="video/mp4">
+        Peramban Anda tidak mendukung pemutaran video.
+      </video>
+      <button class="video-cta" id="reel-play" aria-label="Putar showreel aplikasi">
+        <i data-ic="scan" data-ic-size="26"></i>
+        <span>Lihat aplikasinya bekerja<i>35 detik · rekaman layar asli</i></span>
+      </button>
+    </div>
+
+    <div class="role-grid">
+      <a class="role reveal" href="app.html#/login/sekolah">
+        <span class="role-ic"><i data-ic="school" data-ic-size="22"></i></span>
+        <h3>Guru / Sekolah</h3>
+        <p>Memindai MBG yang datang, mencocokkannya dengan data SPPG, dan melaporkan masalah.</p>
+        <span class="role-go">Masuk <i data-ic="arrowRight" data-ic-size="15"></i></span>
+      </a>
+      <a class="role reveal" href="app.html#/login/sppg">
+        <span class="role-ic"><i data-ic="utensils" data-ic-size="22"></i></span>
+        <h3>SPPG</h3>
+        <p>Mengelola menu, bahan, nutrisi, produksi, dan pengiriman ke sekolah binaan.</p>
+        <span class="role-go">Masuk <i data-ic="arrowRight" data-ic-size="15"></i></span>
+      </a>
+      <a class="role reveal is-gov" href="app.html#/login/pemerintah">
+        <span class="role-ic"><i data-ic="building" data-ic-size="22"></i></span>
+        <h3>Pemerintah</h3>
+        <p>Memantau sebaran SPPG, tren Food Safety Index, dan kepatuhan menu secara nasional.</p>
+        <span class="role-go">Masuk <i data-ic="arrowRight" data-ic-size="15"></i></span>
+      </a>
+      <a class="role reveal" href="app.html#/login/murid">
+        <span class="role-ic"><i data-ic="user" data-ic-size="22"></i></span>
+        <h3>Murid</h3>
+        <p>Melihat menu harian, kandungan gizinya, dan membaca edukasi gizi yang ringkas.</p>
+        <span class="role-go">Masuk <i data-ic="arrowRight" data-ic-size="15"></i></span>
+      </a>
+    </div>
+
+    <aside class="demo-note reveal">
+      <div class="demo-note-head">
+        <i data-ic="sparkle" data-ic-size="18"></i>
+        <b>Akun demo terbuka untuk uji coba</b>
+      </div>
+      <p>Setiap layar login menampilkan kredensialnya, lengkap dengan tombol
+         <em>Isi &amp; masuk</em> satu ketuk. Kata sandi untuk semua peran:
+         <code>nutricense2026</code>.</p>
+      <ul class="demo-note-list">
+        <li><span>Guru / Sekolah</span><code>NPSN 20312345</code></li>
+        <li><span>SPPG</span><code>SPPG0101</code></li>
+        <li><span>Pemerintah</span><code>admin</code></li>
+        <li><span>Murid</span><code>NISN 0071234567</code></li>
+      </ul>
+      <p class="demo-note-foot">Data yang tampil adalah data contoh, bukan data
+         program yang sebenarnya.</p>
+    </aside>
+  </div>
+</section>
+
+<!-- ═══════════ Dampak ═══════════ -->
+<section class="sect" id="dampak">
+  <div class="wrap impact">
+    <div class="impact-copy reveal">
+      <span class="eyebrow">Dampak</span>
+      <h2>Dari tebakan menjadi keputusan berbasis angka</h2>
+      <p>Setiap pemindaian menghasilkan catatan yang dapat ditelusuri: menu apa, dari dapur mana,
+         pada suhu berapa, dan apakah sesuai rencana. Data itulah yang membuat perbaikan menjadi mungkin.</p>
+      <ul class="tick-list">
+        <li><i data-ic="check" data-ic-size="16"></i> Keputusan “aman disajikan” dalam hitungan detik</li>
+        <li><i data-ic="check" data-ic-size="16"></i> Jejak audit lengkap untuk setiap batch produksi</li>
+        <li><i data-ic="check" data-ic-size="16"></i> Perbandingan mutu antar-SPPG yang setara</li>
+        <li><i data-ic="check" data-ic-size="16"></i> Ekspor CSV untuk pelaporan resmi</li>
+      </ul>
+    </div>
+    <div class="impact-art reveal" data-decor="plate"></div>
+  </div>
+</section>
+
+<!-- ═══════════ Tim ═══════════ -->
+<section class="sect sect-tint" id="tim">
+  <div class="wrap">
+    <header class="sect-head reveal">
+      <span class="eyebrow">Tim</span>
+      <h2>Orang-orang di balik Nutricense</h2>
+      <p>Tim riset dan pengembangan yang merancang, merakit, dan menguji NC-BOX-09X.</p>
+    </header>
+
+    <figure class="team-hero reveal">
+      <img src="assets/img/team-group.jpg" alt="Foto bersama tim Nutricense" loading="lazy" data-fallback="group">
+      <figcaption>Tim Nutricense — riset, perangkat keras, AI, dan pengembangan aplikasi.</figcaption>
+    </figure>
+
+    <div class="team-grid" id="team-grid"><!-- diisi oleh js/site.js --></div>
+  </div>
+</section>
+
+<!-- ═══════════ FAQ ═══════════ -->
+<section class="sect" id="faq">
+  <div class="wrap wrap-narrow">
+    <header class="sect-head reveal">
+      <span class="eyebrow">FAQ</span>
+      <h2>Pertanyaan yang sering muncul</h2>
+    </header>
+
+    <div class="faq-list">
+      <details class="faq reveal" open>
+        <summary>Apa itu Food Safety Index?<i data-ic="chevronDown" data-ic-size="18"></i></summary>
+        <p>Nilai 0–100 yang meringkas suhu penyajian, keasaman (pH), kelembapan, gas pembusukan,
+           dan kondisi fisik makanan menjadi satu angka keputusan yang mudah dibaca siapa pun.</p>
+      </details>
+      <details class="faq reveal">
+        <summary>Apakah alat ini menggantikan uji laboratorium?<i data-ic="chevronDown" data-ic-size="18"></i></summary>
+        <p>Tidak. NC-BOX-09X adalah penyaring cepat di titik distribusi — mendeteksi porsi
+           berisiko agar dapat ditindaklanjuti. Uji laboratorium tetap menjadi rujukan akhir.</p>
+      </details>
+      <details class="faq reveal">
+        <summary>Bagaimana bila koneksi internet terputus?<i data-ic="chevronDown" data-ic-size="18"></i></summary>
+        <p>Perangkat menyimpan hasil pemindaian secara lokal dan menyinkronkannya kembali
+           secara otomatis begitu koneksi pulih.</p>
+      </details>
+      <details class="faq reveal">
+        <summary>Siapa pemilik datanya?<i data-ic="chevronDown" data-ic-size="18"></i></summary>
+        <p>Sekolah dan dinas terkait. Nutricense hanya mengelola infrastruktur; seluruh data
+           dapat diekspor kapan saja dalam format terbuka.</p>
+      </details>
+      <details class="faq reveal">
+        <summary>Berapa lama satu pemindaian?<i data-ic="chevronDown" data-ic-size="18"></i></summary>
+        <p>Di bawah satu menit sejak nampan diletakkan hingga hasil tampil di layar perangkat
+           dan aplikasi.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CTA ═══════════ -->
+<section class="cta-band">
+  <div class="wrap cta-inner reveal">
+    <div>
+      <h2>Setiap porsi, terverifikasi.</h2>
+      <p>Coba platform Nutricense dalam mode demo — tidak perlu perangkat keras.</p>
+    </div>
+    <div class="cta-actions">
+      <a class="btn btn-light ic-host" href="app.html"><span>Buka Aplikasi</span><i data-ic="arrowRight" data-ic-size="18"></i></a>
+      <a class="btn btn-outline-light" href="mailto:halo@nutricense.id">Hubungi Kami</a>
+    </div>
+    <span class="cta-art" data-decor="sparks"></span>
+  </div>
+</section>
+
+</main>
+
+<!-- ═══════════ Footer ═══════════ -->
+<footer class="site-foot">
+  <div class="wrap foot-inner">
+    <div class="foot-brand">
+      <span class="brand-mark" data-mark="40"></span>
+      <b>Nutricense</b>
+      <p>An AI-Powered Smart Food Safety and Nutritional Assessment Box for School Feeding Programs.</p>
+    </div>
+    <nav class="foot-col">
+      <h4>Produk</h4>
+      <a href="#produk">NC-BOX-09X</a>
+      <a href="#cara-kerja">Cara Kerja</a>
+      <a href="#platform">Platform</a>
+    </nav>
+    <nav class="foot-col">
+      <h4>Perusahaan</h4>
+      <a href="#tim">Tim</a>
+      <a href="#dampak">Dampak</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <nav class="foot-col">
+      <h4>Kontak</h4>
+      <a href="mailto:halo@nutricense.id">halo@nutricense.id</a>
+      <a href="app.html">Demo Aplikasi</a>
+    </nav>
+  </div>
+  <div class="wrap foot-base">
+    <p class="mono">© <span id="year">2026</span> Nutricense. Seluruh hak cipta.</p>
+    <p class="mono">Proyek nutricense · NC-BOX-09X</p>
+  </div>
+</footer>
+
+<script type="module" src="js/site.js"></script>
+</body>
+</html>

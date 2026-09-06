@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NUTRICENSE - Sign In</title>
+    <!-- Anti-FOUC: apply stored theme before first paint -->
+    <script>
+        document.documentElement.classList.add('js');
+        (function () {
+            try {
+                var t = localStorage.getItem('nutricense-theme');
+                if (!t && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches) t = 'dark';
+                if (t) document.documentElement.setAttribute('data-theme', t);
+            } catch (e) { /* private mode */ }
+        })();
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Design tokens (canonical) -->
+    <link rel="stylesheet" href="css/variables.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-sans);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 22px;
+            padding: 48px 20px;
+            background-color: var(--bg-body);
+            color: var(--text-primary);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ─── Theme toggle (corner) ─── */
+        .theme-toggle {
+            position: fixed;
+            top: 18px;
+            right: 18px;
+            z-index: 10;
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-card);
+            border: 1px solid var(--hairline);
+            border-radius: 50%;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
+            transition: border-color 0.2s var(--ease), transform 0.2s var(--ease);
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-1px);
+        }
+
+        .theme-toggle:focus-visible {
+            outline: 2px solid var(--accent-2);
+            outline-offset: 2px;
+        }
+
+        /* ─── Brand header ─── */
+        .brand-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            text-align: center;
+        }
+
+        .brand-logo {
+            width: 60px;
+            height: 60px;
+            background: var(--accent-grad);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            color: var(--white);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .brand-header h1 {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 0.22em;
+            color: var(--text-primary);
+        }
+
+        .brand-header .secure-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .brand-header .secure-label::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--success);
+            box-shadow: 0 0 0 3px color-mix(in srgb, var(--success) 18%, transparent);
+            animation: blink 2s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; } 50% { opacity: 0.3; }
+        }
+
+        .brand-header .tagline {
+            max-width: 440px;
+            font-size: 0.82rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
+
+        /* ─── Login card (clinical) ─── */
+        .login-card {
+            position: relative;
+            width: 100%;
+            max-width: 420px;
+            padding: 32px 28px 28px;
+            background: var(--bg-card);
+            border: 1px solid var(--hairline);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+        }
+
+        .login-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 10%;
+            right: 10%;
+            height: 2px;
+            background: var(--scanline);
+            pointer-events: none;
+        }
+
+        .login-card h2 {
+            font-family: var(--font-display);
+            font-size: 1.45rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .login-card .subtitle {
+            font-size: 0.86rem;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        /* Tab Switch (Login/Register) — segmented control */
+        .auth-tabs {
+            display: flex;
+            gap: 0;
+            margin-bottom: 24px;
+            background: var(--bg-inset);
+            border: 1px solid var(--hairline);
+            border-radius: var(--radius-sm);
+            padding: 4px;
+        }
+
+        .auth-tab {
+            position: relative;
+            flex: 1;
+            text-align: center;
+            padding: 9px 10px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            color: var(--text-muted);
+            border-radius: calc(var(--radius-sm) - 4px);
+            cursor: pointer;
+            transition: color 0.2s var(--ease), background 0.2s var(--ease);
+            border: none;
+            background: transparent;
+            font-family: var(--font-sans);
+        }
+
+        .auth-tab:focus-visible {
+            outline: 2px solid var(--accent-2);
+            outline-offset: 2px;
+        }
+
+        .auth-tab.active {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .auth-tab.active::after {
+            content: '';
+            position: absolute;
+            left: 14%;
+            right: 14%;
+            bottom: 2px;
+            height: 2px;
+            background: var(--scanline);
+            pointer-events: none;
+        }
+
+        /* Error Message */
+        .error-message {
+            display: none;
+            padding: 10px 14px;
+            background: var(--danger-light);
+            border: 1px solid color-mix(in srgb, var(--danger) 35%, transparent);
+            border-radius: var(--radius-sm);
+            color: var(--danger);
+            font-size: 0.82rem;
+            font-weight: 500;
+            margin-bottom: 18px;
+        }
+
+        .error-message.show {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Form */
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-bottom: 7px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            pointer-events: none;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 14px 12px 42px;
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            border: 1px solid var(--hairline-strong);
+            border-radius: var(--radius-sm);
+            background: var(--bg-card);
+            color: var(--text-primary);
+            transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease);
+        }
+
+        .form-control::placeholder {
+            color: var(--text-muted);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent-2);
+            box-shadow: 0 0 0 3px var(--accent-2-soft);
+        }
+
+        /* Buttons */
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 12px 20px;
+            font-family: var(--font-sans);
+            font-size: 0.88rem;
+            font-weight: 600;
+            border: 1px solid transparent;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: transform 0.2s var(--ease), border-color 0.2s var(--ease),
+                        box-shadow 0.2s var(--ease), filter 0.2s var(--ease);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .btn:focus-visible {
+            outline: 2px solid var(--accent-2);
+            outline-offset: 2px;
+        }
+
+        .btn-primary {
+            background: var(--accent-grad);
+            color: var(--white);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-1px);
+            filter: brightness(1.05);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Secondary buttons: white + hairline (Google & anonymous) */
+        .btn-google,
+        .btn-anon {
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            border-color: var(--hairline-strong);
+        }
+
+        .btn-google:hover:not(:disabled),
+        .btn-anon:hover:not(:disabled) {
+            border-color: var(--accent);
+            color: var(--text-primary);
+        }
+
+        .btn-google img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .btn-anon i {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Divider */
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin: 20px 0;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            letter-spacing: 0.14em;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--hairline);
+        }
+
+        /* Footer */
+        .login-footer {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 0.76rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .login-footer .device-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            background: var(--bg-inset);
+            border: 1px solid var(--hairline);
+            border-radius: 50px;
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            letter-spacing: 0.06em;
+            color: var(--text-secondary);
+            margin-top: 10px;
+        }
+
+        .login-footer .device-label i {
+            color: var(--accent-2);
+        }
+
+        /* Sensor chips row (below card) */
+        .features-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .feature-chip {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 14px;
+            background: var(--bg-card);
+            border: 1px solid var(--hairline);
+            border-radius: 50px;
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+        }
+
+        .feature-chip i {
+            font-size: 0.8rem;
+            color: var(--accent);
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            display: none;
+            width: 18px;
+            height: 18px;
+            border: 2px solid color-mix(in srgb, var(--white) 35%, transparent);
+            border-top-color: var(--white);
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+
+        .btn-google .spinner,
+        .btn-anon .spinner {
+            border-color: color-mix(in srgb, var(--text-secondary) 25%, transparent);
+            border-top-color: var(--text-secondary);
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ─── Responsive ─── */
+        @media (max-width: 480px) {
+            body { padding: 32px 14px; }
+            .brand-header h1 { font-size: 1.25rem; }
+            .login-card { padding: 26px 18px 22px; }
+            .features-row { display: none; }
+        }
+    </style>
+</head>
+<body class="dot-grid">
+
+    <!-- Theme toggle -->
+    <button class="theme-toggle" data-theme-toggle aria-label="Toggle theme" title="Toggle theme">
+        <i class="fa-solid fa-moon" data-theme-icon></i>
+    </button>
+
+    <!-- Brand header -->
+    <div class="brand-header">
+        <div class="brand-logo">
+            <i class="fa-solid fa-circle-nodes"></i>
+        </div>
+        <h1>NUTRICENSE</h1>
+        <span class="hud-label secure-label">SECURE ACCESS &middot; NC-BOX-09X</span>
+        <p class="tagline">AI-Powered Multi-Sensor Food Safety and Nutritional Assessment Box for School Feeding Programs</p>
+    </div>
+
+    <!-- Login card -->
+    <div class="login-card hud-ticks">
+        <h2>Welcome Back</h2>
+        <p class="subtitle">Sign in to access the NUTRICENSE food safety dashboard.</p>
+
+        <!-- Tab switch -->
+        <div class="auth-tabs">
+            <button class="auth-tab active" id="tab-login" onclick="switchAuthTab('login')">Sign In</button>
+            <button class="auth-tab" id="tab-register" onclick="switchAuthTab('register')">Register</button>
+        </div>
+
+        <!-- Error -->
+        <div class="error-message" id="auth-error">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            <span id="auth-error-text"></span>
+        </div>
+
+        <!-- Email/Password Form -->
+        <form id="auth-form" onsubmit="handleEmailAuth(event)">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <div class="input-wrapper">
+                    <i class="fa-regular fa-envelope"></i>
+                    <input type="email" id="email" class="form-control" placeholder="operator@school.edu" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" id="password" class="form-control" placeholder="Enter your password" required minlength="6">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary" id="btn-email-submit">
+                <span id="btn-email-label">Sign In</span>
+                <div class="spinner" id="spinner-email"></div>
+            </button>
+        </form>
+
+        <div class="divider">OR</div>
+
+        <!-- Google Sign-In -->
+        <button class="btn btn-google" id="btn-google" onclick="handleGoogleSignIn()">
+            <svg width="20" height="20" viewBox="0 0 533.5 544.3">
+                <path d="M533.5 278.4c0-18.5-1.5-37.1-4.7-55.3H272.1v104.8h147c-6.1 33.8-25.7 63.7-54.4 82.7v68h87.7c51.5-47.4 81.1-117.4 81.1-200.2z" fill="#4285f4"/>
+                <path d="M272.1 544.3c73.4 0 135.3-24.1 180.4-65.7l-87.7-68c-24.4 16.6-55.9 26-92.6 26-71 0-131.2-47.9-152.8-112.3H28.9v70.1c46.2 91.9 140.3 149.9 243.2 149.9z" fill="#34a853"/>
+                <path d="M119.3 324.3c-11.4-33.8-11.4-70.4 0-104.2V150H28.9c-38.6 76.9-38.6 167.5 0 244.4l90.4-70.1z" fill="#fbbc04"/>
+                <path d="M272.1 107.7c38.8-.6 76.3 14 104.4 40.8l77.7-77.7C405 24.6 339.7-.8 272.1 0 169.2 0 75.1 58 28.9 150l90.4 70.1c21.5-64.5 81.8-112.4 152.8-112.4z" fill="#ea4335"/>
+            </svg>
+            <span>Continue with Google</span>
+            <div class="spinner" id="spinner-google"></div>
+        </button>
+
+        <div class="divider">OR</div>
+
+        <!-- Anonymous Sign-In -->
+        <button class="btn btn-anon" id="btn-anon" onclick="handleAnonSignIn()">
+            <i class="fa-solid fa-user-secret"></i>
+            <span>Enter as Guest (Anonymous)</span>
+            <div class="spinner" id="spinner-anon"></div>
+        </button>
+
+        <div class="login-footer">
+            <p>Sign in with your school feeding program credentials.<br>Guests will have limited write access to logs.</p>
+            <div class="device-label"><i class="fa-solid fa-microchip"></i> NC-BOX-09X &bull; nutricense</div>
+        </div>
+    </div>
+
+    <!-- Sensor chips -->
+    <div class="features-row">
+        <div class="feature-chip"><i class="fa-solid fa-camera"></i> AI Vision</div>
+        <div class="feature-chip"><i class="fa-solid fa-temperature-half"></i> Thermal Probe</div>
+        <div class="feature-chip"><i class="fa-solid fa-droplet"></i> pH Sensor</div>
+        <div class="feature-chip"><i class="fa-solid fa-wind"></i> TVOC Gas</div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { AuthService, FirestoreService } from './js/firebase-config.js';
+
+        let authMode = 'login'; // or 'register'
+
+        // Expose functions to global scope
+        window.switchAuthTab = function(mode) {
+            authMode = mode;
+            document.getElementById('tab-login').classList.toggle('active', mode === 'login');
+            document.getElementById('tab-register').classList.toggle('active', mode === 'register');
+            document.getElementById('btn-email-label').textContent = mode === 'login' ? 'Sign In' : 'Create Account';
+            hideError();
+        };
+
+        window.handleEmailAuth = async function(e) {
+            e.preventDefault();
+            const email    = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+
+            if (!email || !password) {
+                showError('Please fill in both email and password.');
+                return;
+            }
+
+            setLoading('email', true);
+            let result;
+
+            if (authMode === 'login') {
+                result = await AuthService.signInEmail(email, password);
+            } else {
+                result = await AuthService.registerEmail(email, password);
+            }
+
+            setLoading('email', false);
+
+            if (result.error) {
+                showError(friendlyError(result.error));
+            } else {
+                await FirestoreService.upsertUserProfile(result.user);
+                window.location.href = 'index.html';
+            }
+        };
+
+        window.handleGoogleSignIn = async function() {
+            setLoading('google', true);
+            const result = await AuthService.signInGoogle();
+            setLoading('google', false);
+
+            if (result.error) {
+                showError(friendlyError(result.error));
+            } else {
+                await FirestoreService.upsertUserProfile(result.user);
+                window.location.href = 'index.html';
+            }
+        };
+
+        window.handleAnonSignIn = async function() {
+            setLoading('anon', true);
+            const result = await AuthService.signInAnonymous();
+            setLoading('anon', false);
+
+            if (result.error) {
+                showError(friendlyError(result.error));
+            } else {
+                await FirestoreService.upsertUserProfile(result.user);
+                window.location.href = 'index.html';
+            }
+        };
+
+        // ─── Check if already logged in ───
+        AuthService.onAuthChange((user) => {
+            if (user) {
+                window.location.href = 'index.html';
+            }
+        });
+
+        // ─── Helpers ───
+        function showError(msg) {
+            const el = document.getElementById('auth-error');
+            const text = document.getElementById('auth-error-text');
+            text.textContent = msg;
+            el.classList.add('show');
+        }
+
+        function hideError() {
+            document.getElementById('auth-error').classList.remove('show');
+        }
+
+        function setLoading(type, loading) {
+            const btnMap = {
+                email:  { btn: 'btn-email-submit',  spinner: 'spinner-email' },
+                google: { btn: 'btn-google',         spinner: 'spinner-google' },
+                anon:   { btn: 'btn-anon',           spinner: 'spinner-anon' },
+            };
+            const { btn, spinner } = btnMap[type];
+            document.getElementById(btn).disabled = loading;
+            document.getElementById(spinner).style.display = loading ? 'inline-block' : 'none';
+        }
+
+        function friendlyError(msg) {
+            if (msg.includes('user-not-found'))          return 'No account found with this email. Try registering.';
+            if (msg.includes('wrong-password'))           return 'Incorrect password. Please try again.';
+            if (msg.includes('invalid-credential'))       return 'Invalid credentials. Check your email and password.';
+            if (msg.includes('email-already-in-use'))     return 'This email is already registered. Try signing in.';
+            if (msg.includes('weak-password'))             return 'Password is too weak. Use at least 6 characters.';
+            if (msg.includes('popup-closed-by-user'))     return 'Google sign-in popup was closed. Please try again.';
+            if (msg.includes('network-request-failed'))   return 'Network error. Check your internet connection.';
+            if (msg.includes('too-many-requests'))         return 'Too many attempts. Please wait a moment and try again.';
+            if (msg.includes('operation-not-allowed'))     return 'This sign-in method is not enabled. Contact admin.';
+            return msg;
+        }
+    </script>
+
+    <!-- Theme toggle logic -->
+    <script src="js/theme.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,207 @@
+/* ============================================================
+   NutriCense Clinical — Design Tokens (sumber tunggal)
+   Arah: medical futuristic clean white.
+   Light = tema utama; dark tetap didukung via [data-theme].
+   Dimuat SEBELUM stylesheet halaman di semua halaman.
+   ============================================================ */
+
+:root {
+    /* ===== Aksen brand ===== */
+    --accent: #0d9488;          /* teal medis — aksen utama */
+    --accent-strong: #0f766e;
+    --accent-soft: #ccfbf1;
+    --accent-2: #0284c7;        /* biru klinis — aksen sekunder */
+    --accent-2-soft: #e0f2fe;
+    --cyan: #06b6d4;
+    --accent-grad: linear-gradient(120deg, #0d9488, #0284c7);
+
+    /* ===== Semantik ===== */
+    --success: #0d9488;
+    --success-light: #ccfbf1;
+    --warning: #d97706;
+    --warning-light: #fef3c7;
+    --danger: #dc2626;
+    --danger-light: #fee2e2;
+    --info: #0284c7;
+    --info-light: #e0f2fe;
+
+    /* ===== Permukaan ===== */
+    --bg-body: #f8fbfd;         /* putih dingin, nyaris tanpa warna */
+    --bg-card: #ffffff;
+    --bg-inset: #f1f6f9;
+
+    /* ===== Teks ===== */
+    --text-primary: #0c1e2e;
+    --text-secondary: #3e5568;
+    --text-muted: #7c92a3;
+
+    /* ===== Garis ===== */
+    --hairline: #e3ecf1;
+    --hairline-strong: #cfdde5;
+
+    /* ===== Alias legacy (dipakai stylesheet lama) ===== */
+    --primary: var(--accent-2);
+    --primary-dark: #075985;
+    --primary-light: var(--accent-2-soft);
+    --secondary: var(--accent);
+    --secondary-dark: var(--accent-strong);
+    --secondary-light: var(--accent-soft);
+    --white: #ffffff;
+    --gray-50: #f8fbfd;
+    --gray-100: #f1f6f9;
+    --gray-200: #e3ecf1;
+    --gray-300: #cfdde5;
+    --gray-400: #9db0be;
+    --gray-500: #7c92a3;
+    --gray-600: #5c7488;
+    --gray-700: #3e5568;
+    --gray-800: #22374a;
+    --gray-900: #0c1e2e;
+
+    /* ===== Glass (dipakai HEMAT: nav sticky / overlay saja) ===== */
+    --glass-bg: rgba(255, 255, 255, 0.72);
+    --glass-blur: blur(12px);
+    --glass-border: 1px solid rgba(12, 30, 46, 0.06);
+    --glass-radius: 16px;
+    --glass-shadow: 0 8px 28px rgba(12, 30, 46, 0.06);
+
+    /* ===== Bayangan (tipis — clean white) ===== */
+    --shadow-sm: 0 1px 2px rgba(12, 30, 46, 0.05);
+    --shadow-md: 0 2px 6px rgba(12, 30, 46, 0.05), 0 8px 20px rgba(12, 30, 46, 0.05);
+    --shadow-lg: 0 4px 10px rgba(12, 30, 46, 0.05), 0 16px 40px rgba(12, 30, 46, 0.07);
+
+    /* ===== Detail HUD ===== */
+    --tick-color: rgba(2, 132, 199, 0.35);       /* kurung sudut kartu */
+    --grid-dot: rgba(2, 132, 199, 0.07);          /* pola titik latar */
+    --scanline: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.5), transparent);
+
+    /* ===== Layout ===== */
+    --sidebar-width: 260px;
+    --header-height: 72px;
+
+    /* ===== Tipografi ===== */
+    --font-display: 'Space Grotesk', 'Plus Jakarta Sans', sans-serif;
+    --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'JetBrains Mono', Consolas, monospace;
+    --font-size-base: 1rem;
+
+    /* ===== Radius & jarak ===== */
+    --radius-sm: 10px;
+    --radius-md: 14px;
+    --radius-lg: 20px;
+    --gap-base: 16px;
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ===== Mode gelap (sekunder, klinis-dingin) ===== */
+[data-theme="dark"] {
+    --accent: #2dd4bf;
+    --accent-strong: #14b8a6;
+    --accent-soft: #113533;
+    --accent-2: #38bdf8;
+    --accent-2-soft: #0d2b3e;
+    --cyan: #22d3ee;
+    --accent-grad: linear-gradient(120deg, #2dd4bf, #38bdf8);
+
+    --success: #2dd4bf;
+    --success-light: #113533;
+    --warning: #fbbf24;
+    --warning-light: #3a2c0d;
+    --danger: #f87171;
+    --danger-light: #3d1515;
+    --info: #38bdf8;
+    --info-light: #0d2b3e;
+
+    --bg-body: #0a141e;
+    --bg-card: #101d29;
+    --bg-inset: #0d1823;
+
+    --text-primary: #e8f1f7;
+    --text-secondary: #b7c8d4;
+    --text-muted: #7e93a4;
+
+    --hairline: #1b2c3a;
+    --hairline-strong: #27394a;
+
+    --primary: var(--accent-2);
+    --primary-dark: #0ea5e9;
+    --primary-light: var(--accent-2-soft);
+    --secondary: var(--accent);
+    --secondary-dark: var(--accent-strong);
+    --secondary-light: var(--accent-soft);
+    --gray-50: #101d29;
+    --gray-100: #16283a;
+    --gray-200: #1b2c3a;
+    --gray-300: #27394a;
+    --gray-400: #40566a;
+    --gray-500: #5c7488;
+    --gray-600: #7e93a4;
+    --gray-700: #9db0be;
+    --gray-800: #c2d1db;
+    --gray-900: #e8f1f7;
+
+    --glass-bg: rgba(16, 29, 41, 0.72);
+    --glass-border: 1px solid rgba(255, 255, 255, 0.06);
+    --glass-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 2px 6px rgba(0, 0, 0, 0.3), 0 8px 20px rgba(0, 0, 0, 0.25);
+    --shadow-lg: 0 4px 10px rgba(0, 0, 0, 0.35), 0 16px 40px rgba(0, 0, 0, 0.3);
+
+    --tick-color: rgba(56, 189, 248, 0.4);
+    --grid-dot: rgba(56, 189, 248, 0.06);
+    --scanline: linear-gradient(90deg, transparent, rgba(34, 211, 238, 0.45), transparent);
+}
+
+/* ===== Utilitas bersama ===== */
+.glass {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: var(--glass-border);
+    border-radius: var(--glass-radius);
+    box-shadow: var(--glass-shadow);
+}
+@supports not (backdrop-filter: blur(1px)) {
+    .glass { background: var(--bg-card); }
+}
+
+/* Kurung sudut HUD — tempel .hud-ticks pada kartu (butuh position:relative) */
+.hud-ticks { position: relative; }
+.hud-ticks::before,
+.hud-ticks::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    pointer-events: none;
+}
+.hud-ticks::before {
+    top: 8px; left: 8px;
+    border-top: 1px solid var(--tick-color);
+    border-left: 1px solid var(--tick-color);
+}
+.hud-ticks::after {
+    bottom: 8px; right: 8px;
+    border-bottom: 1px solid var(--tick-color);
+    border-right: 1px solid var(--tick-color);
+}
+
+/* Latar pola titik halus */
+.dot-grid {
+    background-image: radial-gradient(var(--grid-dot) 1px, transparent 1px);
+    background-size: 22px 22px;
+}
+
+/* Label mikro gaya instrumen */
+.hud-label {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root { color-scheme: light dark; }
+}

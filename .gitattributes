@@ -1,0 +1,10 @@
+# Normalkan akhir baris: repo menyimpan LF, checkout Windows tetap CRLF.
+* text=auto eol=lf
+
+# Berkas biner — jangan pernah diutak-atik akhir barisnya
+*.png binary
+*.jpg binary
+*.webp binary
+*.mp4 binary
+*.webm binary
+*.blend binary

@@ -1,0 +1,403 @@
+/* ============================================================
+   NUTRICENSE — Gaya khusus per layar + animasi dekorasi SVG
+   ============================================================ */
+
+/* ─────────────── Dekorasi SVG bersama ─────────────── */
+.nc-blobs { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.nc-blob { transform-origin: center; }
+.nc-blob-1 { animation: blob-a 16s var(--ease-in-out) infinite; }
+.nc-blob-2 { animation: blob-b 20s var(--ease-in-out) infinite; }
+.nc-blob-3 { animation: blob-c 24s var(--ease-in-out) infinite; }
+@keyframes blob-a { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(16px,-12px) scale(1.07); } }
+@keyframes blob-b { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-20px,14px) scale(.94); } }
+@keyframes blob-c { 0%,100% { transform: translate(0,0); } 50% { transform: translate(10px,-8px); } }
+
+.nc-sparks { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; color: var(--lime-500); }
+.nc-spark { opacity: .35; transform-origin: center; animation: spark-twinkle 3.4s var(--ease-in-out) infinite; }
+@keyframes spark-twinkle {
+    0%, 100% { opacity: .2; transform: scale(.8) rotate(0); }
+    50%      { opacity: .85; transform: scale(1.15) rotate(22deg); }
+}
+
+.nc-plate { color: var(--accent); }
+.nc-plate-arc { stroke-dasharray: 164; stroke-dashoffset: 164; animation: ic-draw 1600ms var(--ease) forwards, plate-spin 22s linear 1.6s infinite; transform-origin: 100px 100px; }
+@keyframes plate-spin { to { transform: rotate(360deg); } }
+
+.nc-gauge-arc { animation: gauge-fill 1100ms var(--ease) forwards; }
+@keyframes gauge-fill { to { stroke-dashoffset: var(--to); } }
+
+.nc-scanframe { position: absolute; inset: 0; width: 100%; height: 100%; color: var(--accent); }
+.nc-scanbeam { animation: scanbeam 2.6s var(--ease-in-out) infinite; }
+@keyframes scanbeam { 0%,100% { transform: translateY(0); } 50% { transform: translateY(89.8px); } }
+
+.nc-mark-spark path { stroke-dasharray: 20; stroke-dashoffset: 20; animation: ic-draw 700ms var(--ease) 200ms forwards; }
+.nc-wave { display: block; width: 100%; height: 60px; color: var(--surface); }
+.nc-wave.is-flip { transform: rotate(180deg); }
+
+/* ─────────────── Splash ─────────────── */
+.splash {
+    position: relative; min-height: 100dvh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: var(--sp-6); padding: var(--sp-8) var(--sp-5);
+    background: linear-gradient(180deg, var(--accent-faint), var(--bg) 55%);
+    overflow: hidden; text-align: center;
+}
+.splash-bg { position: absolute; inset: -10% -20% auto; height: 70%; opacity: .8; }
+.splash-plate { position: absolute; bottom: -80px; right: -70px; opacity: .5; }
+.splash-sparks { position: absolute; inset: 8% 6% auto; height: 60%; }
+.splash-core { position: relative; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.splash-mark { animation: mark-in 900ms var(--ease-spring) both; }
+@keyframes mark-in { from { opacity: 0; transform: scale(.6) rotate(-14deg); } }
+.splash-name { font-size: 2.15rem; font-weight: 800; letter-spacing: -.035em; margin-top: var(--sp-3); }
+.splash-name span { color: var(--accent); }
+.splash-tag { font-size: .92rem; font-weight: 650; color: var(--ink-2); }
+.splash-sub { font-size: .84rem; color: var(--ink-3); max-width: 26ch; margin-top: var(--sp-3); }
+.splash-foot { position: relative; width: min(100%, 360px); display: grid; gap: var(--sp-4); }
+.splash-bar { display: block; height: 4px; border-radius: var(--r-pill); background: var(--line); overflow: hidden; }
+.splash-bar i { display: block; height: 100%; width: 0; background: var(--accent); border-radius: inherit; animation: splash-load 2.6s var(--ease) forwards; }
+@keyframes splash-load { to { width: 100%; } }
+
+/* ─────────────── Autentikasi ─────────────── */
+.auth-screen {
+    position: relative; min-height: 100dvh;
+    padding: 0 var(--sp-5) var(--sp-8);
+    display: flex; flex-direction: column; gap: var(--sp-5);
+    overflow: hidden;
+}
+.auth-deco { position: absolute; inset: -12% -25% auto; height: 46%; pointer-events: none; }
+.auth-top { position: relative; text-align: center; padding-top: calc(var(--safe-t) + var(--sp-8)); display: grid; justify-items: center; gap: 4px; }
+.auth-mark { margin-bottom: var(--sp-3); }
+.auth-legal { text-align: center; font-size: .72rem; color: var(--ink-4); margin-top: auto; }
+
+.mode-list { position: relative; display: grid; gap: var(--sp-3); }
+.mode {
+    display: flex; align-items: center; gap: var(--sp-4);
+    padding: var(--sp-4);
+    background: var(--surface);
+    border: 1.5px solid var(--line);
+    border-radius: var(--r-xl);
+    box-shadow: var(--sh-sm);
+    cursor: pointer; text-align: left;
+    animation: rise-in var(--dur-3) var(--ease) var(--d, 0ms) both;
+    transition: transform var(--dur-2) var(--ease), box-shadow var(--dur-2) var(--ease), border-color var(--dur-2) var(--ease);
+}
+.mode:hover { transform: translateY(-3px); box-shadow: var(--sh-md); border-color: var(--accent); }
+.mode-ic { display: grid; place-items: center; width: 46px; height: 46px; flex: none; border-radius: var(--r-md); background: var(--g-100); color: var(--g-600); }
+.mode-k .mode-ic { background: var(--macro-krb); color: var(--macro-krb-ink); }
+.mode-p .mode-ic { background: var(--p-100); color: var(--p-600); }
+.mode-copy { flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.mode-copy b { font-size: .95rem; }
+.mode-g .mode-copy b { color: var(--g-600); }
+.mode-k .mode-copy b { color: var(--macro-krb-ink); }
+.mode-p .mode-copy b { color: var(--p-600); }
+.mode-copy i { font-style: normal; font-size: .78rem; color: var(--ink-3); }
+.mode-go { flex: none; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--accent); color: var(--accent-on); }
+.mode-k .mode-go { background: var(--macro-krb-ink); } .mode-p .mode-go { background: var(--p-500); }
+
+.auth-screen.is-login { padding-inline: 0; }
+.auth-screen.is-login > *:not(.appbar):not(.auth-deco) { padding-inline: var(--sp-5); }
+.auth-hero { position: relative; display: grid; justify-items: center; gap: var(--sp-3); padding: var(--sp-6) 0 var(--sp-2); text-align: center; }
+.auth-hero-art { position: relative; display: grid; place-items: center; width: 96px; height: 96px; border-radius: 50%; background: var(--accent-faint); color: var(--accent); }
+.auth-form { position: relative; width: min(100%, 420px); margin-inline: auto; }
+.auth-form .btn { margin-top: var(--sp-5); }
+.auth-alt { text-align: center; font-size: .84rem; color: var(--ink-3); margin-top: var(--sp-4); }
+.auth-demo { display: flex; align-items: center; justify-content: center; gap: 6px; font-size: .74rem; color: var(--ink-4); margin-top: auto; padding-top: var(--sp-6); }
+.field-box.is-bad { border-color: var(--bad); animation: ic-buzz 400ms linear; }
+
+
+/* Ikon di dalam thumbnail kecil mengikuti nada chip-nya */
+.thumb svg { color: var(--accent-deep); }
+.thumb-kal svg { color: var(--macro-kal-ink); }
+.thumb-pro svg { color: var(--macro-pro-ink); }
+.thumb-krb svg { color: var(--macro-krb-ink); }
+.thumb-lem svg { color: var(--macro-lem-ink); }
+
+/* ─────────────── Kartu akun demo ─────────────── */
+.demo-card {
+    position: relative;
+    width: min(100%, 420px);
+    margin: var(--sp-6) auto 0;
+    padding: var(--sp-4);
+    background: var(--accent-faint);
+    border: 1.5px dashed color-mix(in srgb, var(--accent) 38%, transparent);
+    border-radius: var(--r-lg);
+}
+.demo-head {
+    display: flex; align-items: center; gap: 8px;
+    margin-bottom: var(--sp-3);
+    color: var(--accent-deep);
+}
+.demo-head b { font-size: .86rem; flex: 1; }
+.demo-head svg { color: var(--accent); }
+.demo-kv {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: var(--sp-3); padding: 5px 0; font-size: .8rem;
+}
+.demo-kv + .demo-kv { border-top: 1px solid color-mix(in srgb, var(--accent) 16%, transparent); }
+.demo-kv span { color: var(--ink-3); }
+.demo-kv code {
+    font-family: var(--font-mono); font-size: .78rem;
+    color: var(--ink); background: var(--surface);
+    padding: 2px 8px; border-radius: var(--r-xs);
+    user-select: all;
+}
+
+.spin { width: 15px; height: 15px; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: spin 700ms linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ─────────────── Sapaan ─────────────── */
+.hero-greet {
+    position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: var(--sp-4) var(--sp-5);
+    margin-top: var(--sp-2);
+    background: var(--accent-faint);
+    border-radius: var(--r-xl);
+}
+.hero-greet.is-slim { padding-block: var(--sp-3); }
+.greet-hi { font-weight: 700; font-size: 1rem; }
+.greet-sub { font-size: .8rem; color: var(--ink-3); }
+.greet-art { position: absolute; right: -30%; top: -40%; width: 70%; height: 190%; opacity: .8; pointer-events: none; }
+
+/* ─────────────── Kartu menu ─────────────── */
+.eyebrow { display: block; font-size: .7rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--ink-3); }
+.eyebrow.on-accent { color: rgba(255,255,255,.82); }
+.on-accent { color: rgba(255,255,255,.82); }
+.menu-head { display: flex; align-items: center; gap: var(--sp-3); justify-content: space-between; }
+.menu-thumb { flex: none; }
+.menu-mini { display: grid; gap: var(--sp-2); }
+.menu-mini li { display: flex; align-items: center; gap: var(--sp-3); font-size: .86rem; }
+.menu-mini li span { flex: 1; }
+.menu-mini li b { font-family: var(--font-num); font-size: .82rem; color: var(--ink-3); }
+
+/* ─────────────── Pita ringkasan ─────────────── */
+.ribbon { position: relative; overflow: hidden; }
+.ribbon-head { display: flex; align-items: center; justify-content: space-between; }
+.ribbon-stats { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-3); margin-top: var(--sp-3); }
+.ribbon-stats div { display: flex; flex-direction: column; gap: 1px; }
+.ribbon-stats b { font-family: var(--font-num); font-size: 1.34rem; font-weight: 700; color: #fff; }
+.ribbon-stats b i { font-style: normal; font-size: .72rem; opacity: .8; }
+.ribbon-stats span { font-size: .68rem; color: rgba(255,255,255,.78); font-weight: 600; }
+.ribbon-art { position: absolute; right: -25%; top: -60%; width: 60%; height: 220%; opacity: .35; pointer-events: none; }
+
+/* ─────────────── Scan ─────────────── */
+.page.is-scan { max-width: 620px; }
+.scan-hint { text-align: center; font-size: .84rem; color: var(--ink-3); margin: var(--sp-2) 0 var(--sp-4); }
+.scan-stage {
+    position: relative; aspect-ratio: 3 / 4; max-height: 58dvh;
+    margin-inline: auto; width: 100%;
+    border-radius: var(--r-2xl); overflow: hidden;
+    background: #0d1712; color: var(--accent);
+    box-shadow: var(--sh-lg);
+}
+.scan-stage video, .scan-3d { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity var(--dur-4) var(--ease); }
+.scan-stage.has-cam video { opacity: 1; }
+.scan-stage.has-3d .scan-3d { opacity: 1; }
+.scan-frame { position: absolute; inset: 8%; pointer-events: none; }
+.scan-note {
+    position: absolute; left: 50%; bottom: var(--sp-4); transform: translateX(-50%);
+    padding: 6px 14px; border-radius: var(--r-pill);
+    background: rgba(0,0,0,.45); color: #fff;
+    font-size: .74rem; white-space: nowrap;
+    backdrop-filter: blur(6px);
+}
+.scan-stage.is-flash::after {
+    content: ''; position: absolute; inset: 0; background: #fff; animation: flash 220ms var(--ease);
+}
+@keyframes flash { from { opacity: .9; } to { opacity: 0; } }
+
+.scan-actions { display: flex; align-items: center; justify-content: space-around; margin-top: var(--sp-5); }
+.scan-side {
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+    border: 0; background: none; color: var(--ink-2); cursor: pointer;
+    font-size: .72rem; font-weight: 600;
+}
+.scan-side:hover { color: var(--accent); }
+.shutter {
+    position: relative; display: grid; place-items: center;
+    width: 68px; height: 68px; border: 0; border-radius: 50%;
+    background: var(--accent); color: var(--accent-on);
+    cursor: pointer; box-shadow: var(--sh-accent);
+    transition: transform var(--dur-1) var(--ease);
+}
+.shutter:active { transform: scale(.92); }
+.shutter-ring { position: absolute; inset: -6px; border: 2.5px solid var(--accent); border-radius: 50%; opacity: .35; animation: ring-pulse 2.4s var(--ease-in-out) infinite; }
+@keyframes ring-pulse { 0%,100% { transform: scale(1); opacity: .35; } 50% { transform: scale(1.09); opacity: .12; } }
+
+/* ─────────────── Vonis hasil ─────────────── */
+.verdict {
+    display: flex; align-items: center; gap: var(--sp-4);
+    padding: var(--sp-4) var(--sp-5);
+    border-radius: var(--r-xl);
+    background: var(--ok-soft);
+    border: 1.5px solid color-mix(in srgb, var(--ok) 26%, transparent);
+    margin-top: var(--sp-2);
+}
+.verdict-warn { background: var(--warn-soft); border-color: color-mix(in srgb, var(--warn) 30%, transparent); }
+.verdict-ic { display: grid; place-items: center; width: 50px; height: 50px; flex: none; border-radius: 50%; background: var(--surface); color: var(--ok); }
+.verdict-warn .verdict-ic { color: var(--warn); }
+.verdict b { display: block; font-size: 1.05rem; letter-spacing: .01em; color: var(--ok); }
+.verdict-warn b { color: var(--warn); }
+.verdict span { font-size: .82rem; color: var(--ink-2); }
+
+/* ─────────────── Perbandingan SPPG vs Scan ─────────────── */
+.compare { display: grid; grid-template-columns: 1fr auto 1fr; gap: var(--sp-3); }
+.compare-sep { width: 1px; background: var(--line); }
+.compare-col h4 { font-size: .76rem; color: var(--ink-3); margin-bottom: var(--sp-3); }
+.compare-col ul { display: grid; gap: var(--sp-2); }
+.compare-col li { display: flex; align-items: flex-start; gap: 6px; font-size: .82rem; color: var(--ink-2); }
+.compare-col li svg { color: var(--ok); flex: none; margin-top: 3px; }
+.compare-col li.is-miss { color: var(--bad); }
+.compare-col li.is-miss svg { color: var(--bad); }
+.compare-col li i { display: block; font-style: normal; font-size: .7rem; opacity: .8; }
+
+/* ─────────────── FSI terbelah + checklist ─────────────── */
+.fsi-split { display: grid; grid-template-columns: auto 1fr; gap: var(--sp-5); align-items: center; }
+.fsi-split-a { display: grid; gap: 2px; }
+.checklist { display: grid; gap: 7px; }
+.checklist li { display: flex; align-items: center; gap: 7px; font-size: .82rem; }
+.checklist li svg { color: var(--ok); flex: none; }
+.checklist li span { flex: 1; color: var(--ink-2); }
+.checklist li b { font-family: var(--font-num); }
+
+.tone-ok { color: var(--ok); } .tone-warn { color: var(--warn); }
+.tone-bad { color: var(--bad); } .tone-g { color: var(--accent); }
+.tone-info { color: var(--info); }
+
+/* ─────────────── Baris kunci–nilai ─────────────── */
+.kv { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-4); padding: 9px 0; font-size: .86rem; }
+.kv + .kv { border-top: 1px solid var(--line); }
+.kv > span { display: inline-flex; align-items: center; gap: 7px; color: var(--ink-3); flex: none; }
+.kv > span svg { color: var(--ink-4); }
+.kv > b { text-align: right; font-weight: 650; min-width: 0; display: inline-flex; align-items: center; gap: 7px; justify-content: flex-end; flex-wrap: wrap; }
+
+/* ─────────────── Ikon pada baris daftar ─────────────── */
+.row-ic { display: grid; place-items: center; width: 40px; height: 40px; border-radius: var(--r-sm); background: var(--accent-faint); color: var(--accent); }
+.row-ic.tone-ok { background: var(--ok-soft); color: var(--ok); }
+.row-ic.tone-warn { background: var(--warn-soft); color: var(--warn); }
+.row-ic.tone-bad { background: var(--bad-soft); color: var(--bad); }
+.row-ic.tone-info { background: var(--info-soft); color: var(--info); }
+
+/* ─────────────── Foto ─────────────── */
+.photo-main { position: relative; display: grid; place-items: center; padding: var(--sp-7) var(--sp-4); background: var(--inset); }
+.photo-tag { position: absolute; left: var(--sp-3); bottom: var(--sp-3); display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: var(--r-pill); background: var(--surface); font-size: .7rem; color: var(--ink-3); box-shadow: var(--sh-xs); }
+.photo-strip { display: flex; gap: var(--sp-3); }
+.photo-thumb { display: grid; place-items: center; padding: 6px; border: 2px solid transparent; border-radius: var(--r-md); background: var(--inset); cursor: pointer; }
+.photo-thumb.is-on { border-color: var(--accent); }
+.photo-drop {
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+    width: 100%; min-height: 108px; padding: var(--sp-4);
+    border: 1.8px dashed var(--line-2); border-radius: var(--r-lg);
+    background: var(--surface-2); color: var(--ink-3); cursor: pointer;
+    font-size: .82rem;
+    transition: border-color var(--dur-1) var(--ease), color var(--dur-1) var(--ease);
+}
+.photo-drop:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ─────────────── Radio & pencacah ─────────────── */
+.radio-row { display: flex; align-items: center; gap: var(--sp-3); padding: var(--sp-3) var(--sp-4); cursor: pointer; font-size: .88rem; }
+.radio-row + .radio-row { border-top: 1px solid var(--line); }
+.radio-row input { position: absolute; opacity: 0; width: 0; height: 0; }
+.radio-dot { width: 19px; height: 19px; flex: none; border-radius: 50%; border: 2px solid var(--line-2); display: grid; place-items: center; transition: border-color var(--dur-1) var(--ease); }
+.radio-dot::after { content: ''; width: 9px; height: 9px; border-radius: 50%; background: var(--accent); transform: scale(0); transition: transform var(--dur-2) var(--ease-spring); }
+.radio-row input:checked ~ .radio-dot { border-color: var(--accent); }
+.radio-row input:checked ~ .radio-dot::after { transform: scale(1); }
+.radio-row input:focus-visible ~ .radio-dot { outline: 2.5px solid var(--accent); outline-offset: 2px; }
+.counter { text-align: right; font-size: .72rem; color: var(--ink-4); margin-top: 4px; }
+
+/* ─────────────── Kepala detail ─────────────── */
+.detail-head { display: flex; align-items: center; gap: var(--sp-3); margin-top: var(--sp-3); flex-wrap: wrap; }
+.detail-head b { font-size: .95rem; }
+
+/* ─────────────── Profil ─────────────── */
+.profile-head { display: grid; justify-items: center; gap: 3px; padding: var(--sp-6) 0 var(--sp-2); text-align: center; }
+.profile-av { position: relative; display: grid; place-items: center; width: 84px; height: 84px; border-radius: 50%; background: var(--accent-faint); color: var(--accent); margin-bottom: var(--sp-3); }
+.profile-head > b { font-size: 1.05rem; }
+
+/* ─────────────── Pita tanggal ─────────────── */
+.date-strip { display: flex; align-items: center; gap: var(--sp-2); padding: 11px var(--sp-4); background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md); font-size: .85rem; font-weight: 600; }
+.date-strip svg:first-child { color: var(--accent); }
+.date-strip span { flex: 1; }
+.date-strip svg:last-child { color: var(--ink-4); }
+
+/* ─────────────── Stok ─────────────── */
+.stok-row + .stok-row { margin-top: var(--sp-4); padding-top: var(--sp-4); border-top: 1px solid var(--line); }
+.stok-top { display: flex; align-items: center; gap: var(--sp-2); margin-bottom: 7px; }
+.stok-name { flex: 1; font-size: .88rem; font-weight: 650; }
+.stok-val { font-family: var(--font-num); font-size: .84rem; color: var(--ink-3); }
+
+/* ─────────────── Bagan berdampingan ─────────────── */
+.split-chart { display: grid; grid-template-columns: auto 1fr; gap: var(--sp-5); align-items: center; }
+@media (max-width: 400px) { .split-chart { grid-template-columns: 1fr; justify-items: center; } }
+
+/* ─────────────── Peta ─────────────── */
+.map { position: relative; }
+.map-svg { width: 100%; display: block; }
+.map.is-compact .map-svg { max-height: 220px; }
+.map-pin { animation: pin-drop 620ms var(--ease-spring) both; cursor: pointer; }
+@keyframes pin-drop { from { opacity: 0; transform: translateY(-8px) scale(.4); } }
+.map-halo { animation: halo 2.6s var(--ease-in-out) infinite; transform-origin: center; }
+@keyframes halo { 0%,100% { transform: scale(1); opacity: .18; } 50% { transform: scale(1.7); opacity: .05; } }
+.map-legend { display: flex; flex-wrap: wrap; gap: var(--sp-4); padding: var(--sp-3) var(--sp-4); font-size: .74rem; color: var(--ink-2); border-top: 1px solid var(--line); }
+.map-legend li { display: flex; align-items: center; gap: 6px; }
+.map-legend i { width: 9px; height: 9px; border-radius: 50%; }
+
+/* ─────────────── Sakelar ─────────────── */
+.switch-row { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-4); padding: 10px 0; font-size: .88rem; }
+.switch-row + .switch-row { border-top: 1px solid var(--line); }
+.switch-row > span { display: inline-flex; align-items: center; gap: 9px; color: var(--ink-2); }
+.switch-row > span svg { color: var(--ink-3); }
+.switch { position: relative; width: 46px; height: 27px; flex: none; border: 0; border-radius: var(--r-pill); background: var(--line-2); cursor: pointer; transition: background var(--dur-2) var(--ease); }
+.switch i { position: absolute; top: 3px; left: 3px; width: 21px; height: 21px; border-radius: 50%; background: #fff; box-shadow: var(--sh-xs); transition: transform var(--dur-2) var(--ease-spring); }
+.switch.is-on { background: var(--accent); }
+.switch.is-on i { transform: translateX(19px); }
+
+/* ─────────────── FAQ ─────────────── */
+.faq { padding: var(--sp-3) var(--sp-4); }
+.faq + .faq { border-top: 1px solid var(--line); }
+.faq summary { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3); cursor: pointer; font-size: .88rem; font-weight: 650; list-style: none; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary svg { color: var(--ink-4); transition: transform var(--dur-2) var(--ease); flex: none; }
+.faq[open] summary svg { transform: rotate(180deg); }
+.faq p { font-size: .84rem; color: var(--ink-3); margin-top: var(--sp-3); animation: rise-in var(--dur-2) var(--ease); }
+
+/* ─────────────── Langkah ─────────────── */
+.step { display: flex; align-items: center; gap: var(--sp-3); padding: 9px 0; font-size: .86rem; }
+.step + .step { border-top: 1px solid var(--line); }
+.step b { display: grid; place-items: center; width: 26px; height: 26px; flex: none; border-radius: 50%; background: var(--accent-faint); color: var(--accent-deep); font-family: var(--font-num); font-size: .78rem; }
+
+/* ─────────────── Panggung perangkat 3D ─────────────── */
+.device-stage {
+    position: relative; aspect-ratio: 4 / 3; width: 100%;
+    border-radius: var(--r-2xl); overflow: hidden;
+    background: radial-gradient(120% 90% at 50% 15%, var(--accent-faint), var(--bg-tint) 70%);
+    border: 1px solid var(--line);
+    margin-top: var(--sp-3);
+}
+.device-stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.device-hint { position: absolute; left: 50%; bottom: 12px; transform: translateX(-50%); display: inline-flex; align-items: center; gap: 5px; padding: 4px 12px; border-radius: var(--r-pill); background: var(--surface); color: var(--ink-3); font-size: .7rem; box-shadow: var(--sh-xs); }
+.device-stage.is-fallback::after {
+    content: 'Pratinjau 3D tidak tersedia'; position: absolute; inset: 0;
+    display: grid; place-content: center; color: var(--ink-3); font-size: .84rem;
+}
+
+/* ─────────────── Kartu video ─────────────── */
+.video-card { display: flex; align-items: center; gap: var(--sp-3); }
+.video-play { display: grid; place-items: center; width: 48px; height: 48px; flex: none; border-radius: var(--r-md); background: var(--accent); color: var(--accent-on); }
+.video-card b { display: block; font-size: .88rem; }
+.video-card span { font-size: .76rem; }
+
+.version { text-align: center; font-size: .74rem; color: var(--ink-4); margin-top: var(--sp-5); }
+
+/* ─────────────── Penyesuaian desktop ─────────────── */
+@media (min-width: 1024px) {
+    .splash { background: linear-gradient(120deg, var(--accent-faint), var(--bg) 60%); }
+    .splash-name { font-size: 3rem; }
+    .auth-screen { max-width: 520px; margin-inline: auto; }
+    .auth-screen.is-login { max-width: 560px; }
+    .page.is-scan { max-width: 720px; }
+    .scan-stage { aspect-ratio: 16 / 10; max-height: 56dvh; }
+    .device-stage { aspect-ratio: 16 / 9; }
+    .col-a > .sec-head:first-child, .col-b > .sec-head:first-child { margin-top: 0; }
+    .compare { gap: var(--sp-5); }
+}

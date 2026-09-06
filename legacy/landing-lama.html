@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NutriCense — Setiap Porsi Terverifikasi</title>
+    <meta name="description" content="NutriCense memadukan kamera AI dan sensor multi-parameter dalam satu kotak pintar NC-BOX-09X — memantau keamanan dan gizi makanan program MBG secara real-time.">
+
+    <!-- Terapkan tema tersimpan SEBELUM CSS dimuat agar tidak flash (kontrak sama dengan js/theme.js) -->
+    <script>
+        document.documentElement.classList.add('js');
+        (function () {
+            try {
+                var t = localStorage.getItem('nutricense-theme');
+                if (!t && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches) t = 'dark';
+                if (t) document.documentElement.setAttribute('data-theme', t);
+            } catch (e) { /* private mode */ }
+        })();
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Design tokens kanonik (WAJIB sebelum stylesheet halaman) -->
+    <link rel="stylesheet" href="css/variables.css">
+    <!-- Landing CSS -->
+    <link rel="stylesheet" href="css/landing.css">
+
+    <!-- Three.js via importmap (pinned) -->
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+        }
+    }
+    </script>
+</head>
+<body>
+
+    <!-- ===== Navbar ===== -->
+    <header class="nav" id="nav">
+        <div class="nav-inner">
+            <a class="brand" href="#top" aria-label="NutriCense">
+                <span class="brand-icon"><i class="fa-solid fa-circle-nodes"></i></span>
+                <span class="brand-text">NutriCense</span>
+            </a>
+            <nav class="nav-links" id="nav-links" aria-label="Navigasi utama">
+                <a href="#cara-kerja">Cara Kerja</a>
+                <a href="#fitur">Fitur</a>
+                <a href="#dashboard">Dashboard</a>
+                <a href="#faq">FAQ</a>
+                <a class="nav-login-mobile" href="login.html">Masuk Demo <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+            </nav>
+            <div class="nav-actions">
+                <button class="neu-icon-btn" type="button" data-theme-toggle aria-label="Ganti tema terang/gelap">
+                    <i class="fa-solid fa-moon" data-theme-icon></i>
+                </button>
+                <a class="btn btn-primary btn-compact" href="login.html">Masuk Demo</a>
+                <button class="neu-icon-btn nav-burger" type="button" id="nav-burger" aria-label="Buka menu" aria-expanded="false">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main id="top">
+        <!-- ===== Hero ===== -->
+        <section class="hero">
+            <div class="hero-bg" aria-hidden="true"></div>
+            <div class="hero-inner">
+                <div class="hero-copy">
+                    <p class="eyebrow reveal"><span class="pulse-dot" aria-hidden="true"></span>IOT + AI UNTUK PROGRAM MAKAN BERGIZI</p>
+                    <h1 class="reveal">Setiap porsi, <em class="accent-word">terverifikasi</em>.</h1>
+                    <p class="lead reveal">NutriCense membaca apa yang tak terlihat mata — suhu, keasaman, gas pembusukan, dan kandungan gizi — lalu merangkumnya menjadi satu Indeks Keamanan, sebelum porsi pertama sampai ke siswa.</p>
+                    <div class="cta-row reveal">
+                        <a class="btn btn-primary" href="login.html">Coba Dashboard Demo <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                        <a class="btn btn-ghost" href="#cara-kerja">Lihat Cara Kerja</a>
+                    </div>
+                    <p class="micro-proof mono reveal">4 sensor presisi · Telemetri real-time · Ekspor CSV · Perangkat NC-BOX-09X</p>
+                </div>
+
+                <div class="hero-visual reveal">
+                    <div class="scene-wrap" id="scene-wrap">
+                        <canvas id="scene-canvas" aria-hidden="true"></canvas>
+                        <!-- Fallback bila WebGL tidak tersedia -->
+                        <div class="scene-fallback" aria-hidden="true">
+                            <div class="fallback-box"><i class="fa-solid fa-circle-nodes"></i></div>
+                        </div>
+                        <div class="contact-shadow" aria-hidden="true"></div>
+
+                        <!-- Chip telemetri — kartu klinis mini -->
+                        <div class="glass chip chip-1 hud-ticks"><span class="dot dot-safe" aria-hidden="true"></span><span class="mono">INDEKS 94 · AMAN</span></div>
+                        <div class="glass chip chip-2 hud-ticks"><span class="mono">SUHU <span id="chip-temp">72.4</span>°C</span></div>
+                        <div class="glass chip chip-3 hud-ticks"><span class="mono">pH <span id="chip-ph">6.1</span> · TVOC <span id="chip-tvoc">118</span> ppb</span></div>
+                    </div>
+                </div>
+            </div>
+            <a class="scroll-cue mono" href="#stats" aria-label="Gulir ke bawah">gulir<span class="cue-line" aria-hidden="true"><span class="cue-dot"></span></span></a>
+        </section>
+
+        <!-- ===== Strip kredibilitas ===== -->
+        <!-- PLACEHOLDER: angka-angka di bawah wajib divalidasi tim produk sebelum rilis -->
+        <section class="stats" id="stats">
+            <div class="stat reveal"><span class="stat-num"><span class="stat-unit">≤ </span><span data-count="2">0</span><span class="stat-unit"> dtk</span></span><span class="mono stat-label">waktu pindai AI</span></div>
+            <div class="stat reveal"><span class="stat-num" data-count="4">0</span><span class="mono stat-label">sensor presisi</span></div>
+            <div class="stat reveal"><span class="stat-num">24/7</span><span class="mono stat-label">telemetri real-time</span></div>
+            <div class="stat reveal"><span class="stat-num"><span data-count="100">0</span>%</span><span class="mono stat-label">riwayat terekspor CSV</span></div>
+        </section>
+
+        <!-- ===== Pernyataan editorial ===== -->
+        <section class="statement">
+            <h2 class="reveal">Layak di mata, belum tentu aman di lambung.</h2>
+            <p class="reveal">Program makan bergizi menyiapkan jutaan porsi setiap hari. Satu porsi yang tak terpantau bisa berarti satu kelas yang sakit. NutriCense hadir agar keputusan &ldquo;aman disajikan&rdquo; tidak lagi bergantung pada tebakan — melainkan pada <em class="accent-word">data</em>.</p>
+        </section>
+
+        <!-- ===== Cara kerja ===== -->
+        <section class="how" id="cara-kerja">
+            <div class="section-head reveal">
+                <p class="eyebrow">CARA KERJA</p>
+                <h2>Tiga langkah, satu keputusan.</h2>
+            </div>
+            <div class="how-grid">
+                <div class="how-step reveal">
+                    <span class="neu-puck mono">01</span>
+                    <h3>Pindai</h3>
+                    <p>Letakkan sampel makanan di NC-BOX-09X. Kamera AI mengenali menu dalam hitungan detik — tanpa input manual.</p>
+                </div>
+                <div class="how-step reveal">
+                    <span class="neu-puck mono">02</span>
+                    <h3>Analisis</h3>
+                    <p>Empat sensor membaca suhu, pH, gas TVOC, dan kelembapan. AI merangkum semuanya menjadi satu Indeks Keamanan 0–100.</p>
+                </div>
+                <div class="how-step reveal">
+                    <span class="neu-puck mono">03</span>
+                    <h3>Tindak Lanjut</h3>
+                    <p>Hasil langsung tampil di dashboard: peringatan dini bila ada anomali, riwayat lengkap, dan ekspor CSV untuk pelaporan ke dinas.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== Fitur ===== -->
+        <section class="features" id="fitur">
+            <div class="section-head reveal">
+                <p class="eyebrow">SENSOR ARRAY</p>
+                <h2>Enam mata yang tak pernah berkedip.</h2>
+            </div>
+            <div class="feature-grid">
+                <div class="neu-tile hud-ticks reveal">
+                    <i class="fa-solid fa-camera tile-icon" aria-hidden="true"></i>
+                    <p class="mono tile-label">KAMERA AI</p>
+                    <h3>Pengenalan Menu</h3>
+                    <p>Mengenali jenis menu dan memperkirakan komposisi gizi dari satu kali pindai.</p>
+                </div>
+                <div class="neu-tile hud-ticks reveal">
+                    <i class="fa-solid fa-temperature-half tile-icon" aria-hidden="true"></i>
+                    <p class="mono tile-label">SUHU</p>
+                    <h3>Zona Aman Termal</h3>
+                    <p>Menjaga makanan tetap di zona aman; peringatan saat suhu keluar ambang batas.</p>
+                </div>
+                <div class="neu-tile hud-ticks reveal">
+                    <i class="fa-solid fa-flask tile-icon" aria-hidden="true"></i>
+                    <p class="mono tile-label">pH</p>
+                    <h3>Deteksi Keasaman</h3>
+                    <p>Mendeteksi perubahan keasaman — sinyal awal pembusukan yang tak kasat mata.</p>
+                </div>
+                <div class="neu-tile hud-ticks reveal">
+                    <i class="fa-solid fa-wind tile-icon" aria-hidden="true"></i>
+                    <p class="mono tile-label">TVOC / GAS</p>
+                    <h3>Gas Volatil</h3>
+                    <p>Membaca gas volatil hasil pembusukan sebelum bau tercium hidung.</p>
+                </div>
+                <div class="neu-tile hud-ticks reveal">
+                    <i class="fa-solid fa-droplet tile-icon" aria-hidden="true"></i>
+                    <p class="mono tile-label">KELEMBAPAN</p>
+                    <h3>Kondisi Penyimpanan</h3>
+                    <p>Memantau kondisi penyimpanan yang memicu pertumbuhan mikroba.</p>
+                </div>
+                <div class="neu-tile tile-index hud-ticks reveal">
+                    <p class="index-num">94<span class="dot dot-safe" aria-hidden="true"></span></p>
+                    <p class="mono tile-label">INDEKS KEAMANAN</p>
+                    <p>Satu angka sederhana untuk keputusan cepat: sajikan, periksa, atau tahan.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== Pratinjau dashboard ===== -->
+        <section class="preview" id="dashboard">
+            <div class="preview-inner">
+                <div class="preview-copy reveal">
+                    <p class="eyebrow">DASHBOARD</p>
+                    <h2>Semua dapur, satu layar.</h2>
+                    <ul class="preview-bullets">
+                        <li><strong>Telemetri real-time</strong> — grafik suhu, pH, dan gas diperbarui langsung dari perangkat.</li>
+                        <li><strong>Peringatan dini</strong> — notifikasi otomatis saat Indeks Keamanan turun di bawah ambang.</li>
+                        <li><strong>Riwayat &amp; CSV</strong> — setiap pindaian terekam, siap diunduh untuk laporan dinas.</li>
+                    </ul>
+                    <a class="tertiary-link mono" href="login.html">Jelajahi dashboard demo <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                </div>
+                <div class="glass browser-frame reveal" aria-hidden="true">
+                    <div class="frame-bar"><span></span><span></span><span></span></div>
+                    <div class="frame-body">
+                        <div class="mock-cards">
+                            <div class="mock-card"><span class="mono">SUHU</span><strong>72.4°C</strong><span class="mock-bar b1"></span></div>
+                            <div class="mock-card"><span class="mono">pH</span><strong>6.1</strong><span class="mock-bar b2"></span></div>
+                            <div class="mock-card"><span class="mono">TVOC</span><strong>118 ppb</strong><span class="mock-bar b3"></span></div>
+                        </div>
+                        <div class="mock-chart">
+                            <span style="--h:42%"></span><span style="--h:58%"></span><span style="--h:50%"></span><span style="--h:74%"></span><span style="--h:62%"></span><span style="--h:82%"></span><span style="--h:70%"></span><span style="--h:88%"></span><span style="--h:66%"></span><span style="--h:78%"></span><span style="--h:90%"></span><span style="--h:72%"></span>
+                        </div>
+                        <div class="glass mock-toast"><span class="dot dot-safe"></span><span class="mono">Indeks Keamanan 94 — Aman disajikan</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== Untuk siapa ===== -->
+        <section class="audience">
+            <div class="audience-grid">
+                <div class="audience-col reveal">
+                    <p class="mono aud-label">SEKOLAH</p>
+                    <h3>Kepastian di kantin</h3>
+                    <p>Setiap porsi yang masuk kantin sudah melewati pemeriksaan objektif.</p>
+                </div>
+                <div class="audience-col reveal">
+                    <p class="mono aud-label">DINAS PENDIDIKAN</p>
+                    <h3>Pengawasan berbasis bukti</h3>
+                    <p>Data agregat lintas sekolah untuk pengawasan program MBG — bukan laporan manual.</p>
+                </div>
+                <div class="audience-col reveal">
+                    <p class="mono aud-label">DAPUR &amp; KATERING MBG</p>
+                    <h3>Mutu yang tercatat</h3>
+                    <p>Bukti mutu terekam otomatis di setiap batch — melindungi reputasi dapur Anda.</p>
+                </div>
+                <div class="audience-col reveal">
+                    <p class="mono aud-label">MITRA CSR</p>
+                    <h3>Dampak terukur</h3>
+                    <p>Dampak program gizi yang dapat diaudit, siap untuk laporan keberlanjutan.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== FAQ ===== -->
+        <section class="faq" id="faq">
+            <div class="section-head reveal">
+                <p class="eyebrow">FAQ</p>
+                <h2>Yang sering ditanyakan.</h2>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item reveal">
+                    <button class="faq-q" type="button" aria-expanded="false">Apakah butuh koneksi internet terus-menerus?<i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>
+                    <div class="faq-a"><p>Tidak. NC-BOX-09X menyimpan data secara lokal saat koneksi terputus dan menyinkronkannya kembali secara otomatis.</p></div>
+                </div>
+                <div class="faq-item reveal">
+                    <button class="faq-q" type="button" aria-expanded="false">Siapa pemilik datanya?<i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>
+                    <div class="faq-a"><p>Sekolah dan dinas. NutriCense hanya pengelola infrastruktur; seluruh data dapat diekspor kapan saja.</p></div>
+                </div>
+                <div class="faq-item reveal">
+                    <button class="faq-q" type="button" aria-expanded="false">Perlukah kalibrasi rutin?<i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>
+                    <div class="faq-a"><p>Sensor dikalibrasi dari pabrik; dashboard akan mengingatkan jadwal kalibrasi berkala.</p></div>
+                </div>
+                <div class="faq-item reveal">
+                    <button class="faq-q" type="button" aria-expanded="false">Bagaimana skema pengadaannya?<i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>
+                    <div class="faq-a"><p>Kami mendukung skema pengadaan pemerintah maupun kemitraan CSR. Hubungi tim kami untuk proposal.</p></div>
+                </div>
+                <div class="faq-item reveal">
+                    <button class="faq-q" type="button" aria-expanded="false">Apakah bisa dicoba dulu?<i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>
+                    <div class="faq-a"><p>Bisa — <a href="login.html">dashboard demo</a> terbuka untuk dijelajahi tanpa perangkat.</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== CTA penutup ===== -->
+        <section class="cta-band">
+            <h2 class="reveal">Mulai pantau dapur Anda hari ini.</h2>
+            <p class="reveal">Jelajahi dashboard demo, atau bicara langsung dengan tim kami untuk pilot di sekolah Anda.</p>
+            <div class="cta-row reveal">
+                <a class="btn btn-on-dark" href="login.html">Coba Dashboard Demo</a>
+                <a class="btn btn-ghost-light" href="mailto:xinhuantech@gmail.com">Hubungi Tim Kami</a>
+            </div>
+            <p class="micro-proof mono reveal">Tanpa instalasi · Tanpa kartu kredit · Data demo real-time</p>
+        </section>
+    </main>
+
+    <!-- ===== Footer ===== -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div>
+                <p class="footer-brand">NutriCense</p>
+                <p class="footer-mission">Teknologi pemantauan gizi dan keamanan pangan untuk generasi yang tumbuh sehat.</p>
+            </div>
+            <nav class="footer-links mono" aria-label="Navigasi footer">
+                <a href="#cara-kerja">Cara Kerja</a>
+                <a href="#fitur">Fitur</a>
+                <a href="#dashboard">Dashboard</a>
+                <a href="#faq">FAQ</a>
+                <a href="login.html">Masuk</a>
+            </nav>
+            <div class="footer-meta mono">
+                <p>Perangkat NC-BOX-09X</p>
+                <p>Proyek nutricense</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="mono">© <span id="year">2026</span> NutriCense. Seluruh hak cipta.</p>
+            <button class="neu-icon-btn" type="button" data-theme-toggle aria-label="Ganti tema terang/gelap">
+                <i class="fa-solid fa-moon" data-theme-icon></i>
+            </button>
+        </div>
+    </footer>
+
+    <!-- Theme toggle (modul lama yang kini akhirnya terpasang) -->
+    <script src="js/theme.js"></script>
+    <!-- Interaksi + Three.js scene -->
+    <script type="module" src="js/landing.js"></script>
+</body>
+</html>

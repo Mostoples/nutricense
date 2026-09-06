@@ -1,0 +1,42 @@
+# ─────────────── Rahasia ───────────────
+# serviceacounts.json memuat private key service account Firebase.
+# JANGAN pernah di-commit. Bila terlanjur, cabut key-nya di Firebase
+# Console — menghapus berkasnya saja tidak membatalkan kuncinya.
+serviceacounts.json
+serviceaccounts.json
+*-service-account*.json
+.env
+.env.*
+
+# ─────────────── Cache alat ───────────────
+.firebase/
+node_modules/
+__pycache__/
+*.pyc
+
+# ─────────────── Blender ───────────────
+# Berkas .blend dibangun ulang oleh blender/build_model.py, dan
+# folder stills dirender ulang dalam ~70 detik. Yang disimpan hanya
+# render video 3D-nya, karena memakan ~45 menit GPU untuk diulang.
+blender/*.blend
+blender/*.blend1
+blender/out/stills/
+blender/out/check/
+blender/out/preview.png
+blender/out/timing_*.png
+blender/out/video_log.txt
+
+# ─────────────── Perakitan video ───────────────
+# Semua ini keluaran antara; skrip di video/ membangunnya ulang.
+video/segments/
+video/segments_clean/
+video/reel_segments/
+video/app_clips/
+video/raw_app/
+video/shots/
+video/cards/
+
+# ─────────────── Sistem ───────────────
+Thumbs.db
+desktop.ini
+.DS_Store

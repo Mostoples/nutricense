@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#2f9e5f">
+<title>Nutricense — Smart Nutrition &amp; Food Safety</title>
+<meta name="description" content="Aplikasi Nutricense untuk Sekolah, SPPG, Pemerintah, dan Murid: pemindaian MBG, Food Safety Index, dan pemantauan gizi secara real-time.">
+
+<!-- Terapkan tema tersimpan sebelum CSS agar tidak berkedip -->
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem('nutricense-theme');
+      if (!t && matchMedia('(prefers-color-scheme: dark)').matches) t = 'dark';
+      document.documentElement.setAttribute('data-theme', t || 'light');
+    } catch (e) { document.documentElement.setAttribute('data-theme', 'light'); }
+  })();
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/icons.css">
+<link rel="stylesheet" href="css/app.css">
+<link rel="stylesheet" href="css/screens.css">
+<link rel="stylesheet" href="css/modes.css">
+
+<!-- Three.js dipasang lewat importmap (versi dikunci) -->
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body>
+
+<div class="app-shell is-bare" id="shell">
+  <aside class="rail" id="rail"></aside>
+
+  <div class="app-scroll" id="scroll">
+    <main id="outlet" role="main"></main>
+  </div>
+
+  <nav class="tabbar" id="tabbar" aria-label="Navigasi utama"></nav>
+</div>
+
+<div id="toasts"></div>
+
+<noscript>
+  <div class="pad-page">
+    <h1>JavaScript diperlukan</h1>
+    <p>Aplikasi Nutricense membutuhkan JavaScript untuk berjalan. Aktifkan JavaScript pada peramban Anda.</p>
+  </div>
+</noscript>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
