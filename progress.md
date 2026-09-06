@@ -1,7 +1,7 @@
 # Nutricense — Catatan Arsitektur
 
 Peta berkas, cara menyunting hal yang sering diubah, dan sisa pekerjaan.
-Live di <https://nutricense.web.app>.
+Live di <https://nutricense.web.app> · Repo: <https://github.com/Mostoples/nutricense>
 
 ## Tiga entri
 

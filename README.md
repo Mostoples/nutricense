@@ -16,6 +16,7 @@ produk, dan pipeline video.
 | Situs profil | <https://nutricense.web.app> |
 | Aplikasi | <https://nutricense.web.app/app.html> |
 | Coba peran | <https://nutricense.web.app/app.html#/pilih-mode> |
+| Repositori | <https://github.com/Mostoples/nutricense> |
 
 ## Isi repositori
 
