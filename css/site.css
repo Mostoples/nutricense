@@ -411,13 +411,10 @@ img, svg, canvas { display: block; max-width: 100%; }
 .team-hero { margin: 0 0 clamp(28px, 4vw, 46px); }
 .team-hero img { width: 100%; border-radius: var(--r-2xl); box-shadow: var(--sh-lg); object-fit: cover; max-height: 560px; }
 .team-hero figcaption { margin-top: 14px; font-size: .84rem; color: var(--ink-3); text-align: center; }
-.team-hero.no-photo img { display: none; }
-.team-hero.no-photo::before {
-    content: 'Foto tim akan tampil di sini — simpan sebagai assets/img/team-group.jpg';
-    display: grid; place-content: center; text-align: center; padding: 40px 24px;
-    min-height: 220px; border: 1.8px dashed var(--line-2); border-radius: var(--r-2xl);
-    color: var(--ink-3); font-size: .88rem; background: var(--surface);
-}
+/* Tanpa berkasnya, seluruh blok disembunyikan. Sebelumnya di sini
+   ada kotak instruksi bergaris putus-putus — berguna saat menyiapkan,
+   tetapi tampak belum jadi bagi pengunjung situs. */
+.team-hero.no-photo { display: none; }
 
 .team-grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(168px, 1fr)); }
 .member { text-align: center; transition-delay: var(--d, 0ms); }

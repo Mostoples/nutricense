@@ -36,6 +36,12 @@ video/raw_app/
 video/shots/
 video/cards/
 
+# ─────────────── Foto asli dari kamera ───────────────
+# Berkas IMG_* adalah sumber 26 MP (7 MB total). Yang dipakai situs
+# adalah turunannya, assets/img/team-*.jpg, dan itu yang di-commit.
+# Bangun ulang: python tools/prepare_team_photos.py
+assets/img/IMG_*
+
 # ─────────────── Sistem ───────────────
 Thumbs.db
 desktop.ini
