@@ -108,8 +108,11 @@ python video/verify_demo.py
 
 ## Belum selesai
 
-- **Foto tim belum ada.** Kartu menampilkan inisial sampai berkasnya disimpan,
-  dan nama anggota masih placeholder ("Anggota 1", dst) di `js/site.js`.
+- **Nama anggota tim masih placeholder** ("Anggota 1", dst) di `js/site.js`.
+  Fotonya sudah terpasang; tinggal namanya. Urutan foto mengikuti urutan
+  nama berkas kamera, jadi periksa juga pasangan foto–peran.
+- **Foto bersama belum ada.** Blok itu menyembunyikan diri sampai
+  `assets/img/team-group.jpg` disimpan.
 - **`serviceacounts.json` masih milik project lama** (`nutrilense-id`).
   Ganti dengan key baru dari project `nutricense`, lalu cabut key lama.
   Tidak dipakai aplikasi web, tetapi jangan dianggap valid.
@@ -123,6 +126,11 @@ python video/verify_demo.py
 ## Catatan deploy
 
 `firebase.json` mengecualikan `video/**`, `blender/**`, `legacy/**`, `*.md`,
-`config.js`, dan `serviceacounts.json`. Deploy yang sehat memuat **43 berkas**;
-bila jumlahnya melonjak, ada folder kerja yang bocor ke hosting.
-Saat ini **47 berkas** setelah penambahan modes.css, fx.js, dan video hero.
+`config.js`, `serviceacounts.json`, dan `tools/**`. Deploy yang sehat memuat
+**53 berkas**; bila jumlahnya melonjak, ada folder kerja yang bocor.
+
+Pola `**/.*` **tidak** mengecualikan isi direktori berawalan titik — hanya
+namanya. Tanpa `.git/**` dan `**/.*/**`, seluruh `.git` tersaji publik dan
+siapa pun dapat merekonstruksi repositori beserta riwayatnya. Ini sempat
+terjadi (deploy melonjak ke 208 berkas) dan sudah diperbaiki; jangan
+menghapus kedua pola itu.

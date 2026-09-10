@@ -7,6 +7,10 @@
     "public": ".",
     "ignore": [
       "firebase.json",
+      "assets/img/IMG_*",
+      "tools/**",
+      "**/.*/**",
+      ".git/**",
       "**/.*",
       "**/node_modules/**",
       "serviceacounts.json",
