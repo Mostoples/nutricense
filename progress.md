@@ -143,7 +143,14 @@ python video/verify_demo.py
   Wajar untuk demo, harus diperketat sebelum ada data program.
 - **Tidak ada musik pada kedua video.** Tambahkan di draft CapCut lalu Export.
 - Unggah foto pada layar laporan masih placeholder.
-- Data masih dari `store.js`; hanya hasil pindai yang menulis ke Firestore.
+- **Firestore belum terpakai sama sekali oleh aplikasi.** `FirestoreService`
+  ada di `js/firebase-config.js` tetapi tidak diimpor satu view pun; seluruh
+  data layar berasal dari `js/store.js` (di memori, hilang saat muat ulang).
+  Diukur pada situs yang tayang: satu sesi penuh (login → scan → simpan)
+  menghasilkan **0 permintaan ke firestore.googleapis.com**.
+  Yang memakai Firebase saat ini hanya Auth dan Analytics.
+  Catatan lama di sini sempat menyebut "hasil pindai menulis ke Firestore" —
+  itu benar untuk dasbor lama di `legacy/app.js`, bukan untuk SPA ini.
 
 ## Catatan deploy
 
