@@ -5,13 +5,14 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBRSQubdIu1puvdt7LlbXBlQGKIem7zZwQ",
-  authDomain: "nutricense.firebaseapp.com",
-  databaseURL: "https://nutricense-default-rtdb.firebaseio.com",
-  projectId: "nutricense",
-  storageBucket: "nutricense.firebasestorage.app",
-  messagingSenderId: "312972116660",
-  appId: "1:312972116660:web:3f982fa69490b414118de1"
+  apiKey: "AIzaSyDjLnkLV7SqlcyB-uQ0CtNXrLaasbfL3R4",
+  authDomain:        "nutrilense-ab3b7.firebaseapp.com",
+  databaseURL:       "https://nutrilense-ab3b7-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId:         "nutrilense-ab3b7",
+  storageBucket:     "nutrilense-ab3b7.firebasestorage.app",
+  messagingSenderId: "686663396068",
+  appId:             "1:686663396068:web:23ff52e84be1a94aa7daf1",
+  measurementId:     "G-1CLNP3NW02"
 };
 
 // Initialize Firebase

@@ -93,9 +93,31 @@ diam, berulang, sangat samar dan diblur agar tidak bersaing dengan judul.
 Berhenti otomatis saat hero keluar layar atau tab disembunyikan, dan
 dihapus seluruhnya bila pengguna memilih `prefers-reduced-motion`.
 
+## Dua project Firebase
+
+| Bagian | Project | Catatan |
+|---|---|---|
+| Hosting | `nutricense` | nutricense.web.app — hanya berkas statis |
+| Auth + Firestore | `nutrilense-ab3b7` | config di `js/firebase-config.js` |
+
+Auth **harus** berada satu project dengan Firestore. `firestore.rules`
+memakai `request.auth`, dan token terbitan satu project tidak dikenali
+rules project lain — memisahkannya membuat setiap tulisan terbaca sebagai
+tidak terautentikasi dan ditolak.
+
+Alias deploy ada di `.firebaserc`, dan **selalu sebutkan target**:
+
+```bash
+firebase deploy --only hosting -P hosting                      # -> nutricense
+firebase deploy --only firestore:rules,firestore:indexes -P data   # -> nutrilense-ab3b7
+```
+
+`firebase deploy` tanpa `--only` akan mengirim hosting **dan** aturan
+Firestore ke satu project yang sama — salah satu pasti salah sasaran.
+
 ## Autentikasi
 
-Provider yang aktif pada project `nutricense`: **Email/Password saja**.
+Provider yang aktif pada `nutrilense-ab3b7`: **Email/Password saja**.
 Anonymous **tidak** aktif — jangan menambahkan `signInAnonymous()`, selalu
 gagal dengan `ADMIN_ONLY_OPERATION`.
 

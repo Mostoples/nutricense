@@ -1,7 +1,18 @@
 /* ============================================
    NUTRICENSE - Firebase Configuration
-   Project ID: nutricense
-   Services: Auth, Firestore, Hosting
+
+   DUA PROJECT, sengaja dipisah:
+     • Hosting  -> project "nutricense" (nutricense.web.app)
+     • Auth +
+       Firestore -> project "nutrilense-ab3b7"  (config di bawah)
+
+   Auth ikut pindah bersama Firestore, bukan pilihan gaya:
+   firestore.rules memakai request.auth, dan token terbitan satu
+   project tidak dikenali rules project lain. Memisah keduanya
+   membuat semua tulisan terbaca sebagai tidak terautentikasi.
+
+   Hosting tidak terikat config ini sama sekali — ia hanya
+   menyajikan berkas statis, jadi tetap di project lama.
    ============================================ */
 
 // ─── Firebase SDK (Modular via CDN compat) ─────────────────────────────────
@@ -18,22 +29,33 @@ import { getAuth,
          signInWithEmailAndPassword,
          createUserWithEmailAndPassword,
          signInAnonymously }           from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getAnalytics,
+         isSupported }                 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
 
 // ─── Firebase Config (from config.js) ──────────────────────────────────────
 const firebaseConfig = {
-  apiKey:            "AIzaSyBRSQubdIu1puvdt7LlbXBlQGKIem7zZwQ",
-  authDomain:        "nutricense.firebaseapp.com",
-  databaseURL:       "https://nutricense-default-rtdb.firebaseio.com",
-  projectId:         "nutricense",
-  storageBucket:     "nutricense.firebasestorage.app",
-  messagingSenderId: "312972116660",
-  appId:             "1:312972116660:web:3f982fa69490b414118de1"
+  apiKey:            "AIzaSyDjLnkLV7SqlcyB-uQ0CtNXrLaasbfL3R4",
+  authDomain:        "nutrilense-ab3b7.firebaseapp.com",
+  databaseURL:       "https://nutrilense-ab3b7-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId:         "nutrilense-ab3b7",
+  storageBucket:     "nutrilense-ab3b7.firebasestorage.app",
+  messagingSenderId: "686663396068",
+  appId:             "1:686663396068:web:23ff52e84be1a94aa7daf1",
+  measurementId:     "G-1CLNP3NW02"
 };
 
 // ─── Initialize ─────────────────────────────────────────────────────────────
 const app  = initializeApp(firebaseConfig);
 const db   = getFirestore(app);
 const auth = getAuth(app);
+
+/* Analytics dijaga isSupported(): pada mode privat, peramban tanpa
+   IndexedDB, atau konteks non-browser, getAnalytics() melempar dan
+   akan menggagalkan seluruh modul ini. Hapus blok ini bila
+   pengumpulan data tidak diinginkan. */
+isSupported()
+  .then((ok) => { if (ok) getAnalytics(app); })
+  .catch(() => { /* analytics tidak tersedia — abaikan */ });
 
 // ─── Auth Providers ─────────────────────────────────────────────────────────
 const googleProvider = new GoogleAuthProvider();

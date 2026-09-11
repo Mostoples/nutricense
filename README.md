@@ -43,11 +43,16 @@ python -m http.server 8000
 # lalu buka http://localhost:8000
 ```
 
-Deploy:
+Deploy — **dua project berbeda**, selalu sebutkan targetnya:
 
 ```bash
-firebase deploy --only hosting --project nutricense
+firebase deploy --only hosting -P hosting                          # nutricense
+firebase deploy --only firestore:rules,firestore:indexes -P data   # nutrilense-ab3b7
 ```
+
+Hosting tinggal di project `nutricense`; Auth dan Firestore di
+`nutrilense-ab3b7`. Keduanya harus disebut eksplisit — `firebase deploy`
+tanpa `--only` akan mengirim keduanya ke satu project yang sama.
 
 ## Aplikasi
 
@@ -98,7 +103,7 @@ Pipeline dan jebakan yang sudah ditangani ada di
 ## Teknologi
 
 Vanilla ES modules · Three.js (pratinjau 3D) · Firebase Auth + Firestore +
-Hosting · Blender 5.2 (Cycles/OptiX) · ffmpeg · Playwright · Pillow ·
+Hosting + Analytics · Blender 5.2 (Cycles/OptiX) · ffmpeg · Playwright · Pillow ·
 capcut-cli.
 
 Tidak ada framework, bundler, atau langkah build. Ikon adalah SVG inline

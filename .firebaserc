@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "nutricense"
+    "default": "nutricense",
+    "hosting": "nutricense",
+    "data": "nutrilense-ab3b7"
   }
 }

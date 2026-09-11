@@ -24,16 +24,19 @@ alternatif (NPSN / ID SPPG / NISN) ke akun demo peran itu, lalu masuk lewat
 Firebase `signInWithEmailAndPassword`. Pengguna non-demo tetap dapat masuk
 dengan email + kata sandi mereka sendiri.
 
-Provider yang aktif pada project `nutricense`: **Email/Password saja**.
-Anonymous **tidak** aktif — jangan menambahkan jalur `signInAnonymous()`
-karena akan selalu gagal dengan `ADMIN_ONLY_OPERATION`.
+Akun-akun ini hidup di project **`nutrilense-ab3b7`** (Auth + Firestore),
+bukan di `nutricense` yang hanya menyajikan hosting.
+
+Provider yang aktif di sana: **Email/Password**. Jangan menambahkan jalur
+`signInAnonymous()` tanpa mengaktifkan providernya lebih dulu — bila tidak
+aktif, jalur itu selalu gagal dengan `ADMIN_ONLY_OPERATION`.
 
 ## Mengelola akun
 
 Dibuat lewat REST API Identity Toolkit memakai Web API key publik:
 
 ```bash
-KEY="AIzaSyBRSQubdIu1puvdt7LlbXBlQGKIem7zZwQ"
+KEY="AIzaSyDjLnkLV7SqlcyB-uQ0CtNXrLaasbfL3R4"   # project nutrilense-ab3b7
 curl -X POST "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=$KEY" \
   -H "Content-Type: application/json" \
   -d '{"email":"...","password":"...","returnSecureToken":true}'
@@ -42,6 +45,9 @@ curl -X POST "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=$KEY
 Menghapus: ambil `idToken` dari `accounts:signInWithPassword`, lalu POST ke
 `accounts:delete`. Mengganti kata sandi juga dapat dilakukan dari Firebase
 Console → Authentication → Users.
+
+Akun dengan nama yang sama masih tertinggal di project lama `nutricense`.
+Akun-akun itu tidak lagi dipakai aplikasi; hapus bila ingin bersih.
 
 Bila kata sandi diubah, perbarui juga tabel `DEMO` di `js/views/auth.js` —
 tombol "Isi & masuk" memakai nilai dari sana.
